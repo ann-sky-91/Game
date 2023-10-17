@@ -1,0 +1,73 @@
+module.exports = {
+    root: true,
+    parser: '@typescript-eslint/parser',
+    plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier', 'import'],
+    env: {
+        browser: true,
+        commonjs: true,
+        es6: true,
+        node: true,
+    },
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+        'prettier',
+    ],
+    settings: {
+        react: {
+            version: 'detect',
+        },
+    },
+    parserOptions: {
+        ecmaFeatures: {
+            jsx: true,
+        },
+        ecmaVersion: 2020,
+        sourceType: 'module',
+    },
+    rules: {
+        '@typescript-eslint/no-explicit-any': 'error',
+        '@typescript-eslint/no-unused-vars': 'error',
+        '@typescript-eslint/camelcase': 'off',
+        '@typescript-eslint/naming-convention': ['off'],
+        '@typescript-eslint/explicit-function-return-type': ['error'],
+        '@typescript-eslint/interface-name-prefix': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'error',
+        '@typescript-eslint/no-empty-function': 'error',
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'error',
+        'react/no-unknown-property': 'off',
+        'react/react-in-jsx-scope': 'off',
+        'react/display-name': 'off',
+        'react/prop-types': 'off',
+        'react/jsx-no-undef': 'off',
+        'prettier/prettier': 'error',
+        'no-console': 'error',
+        'no-debugger': 'error',
+        'no-unused-vars': 'off',
+        semi: [2, 'never'],
+        'import/no-empty-named-blocks': 'off',
+        'import/order': [
+            'error',
+            {
+                groups: [
+                    'builtin',
+                    'external',
+                    'internal',
+                    'parent',
+                    'sibling',
+                    'index',
+                    'object',
+                    'type',
+                ],
+                'newlines-between': 'always',
+                alphabetize: {
+                    order: 'asc',
+                    caseInsensitive: true,
+                },
+            },
+        ],
+    },
+}

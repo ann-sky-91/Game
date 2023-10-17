@@ -1,0 +1,17 @@
+{
+    "folders": [
+		{
+			"name": "Modules",
+			"path": "../Modules"
+		},
+		{
+			"name": "void-lights",
+			"path": "../../_Архив/void-lights"
+		},
+		{
+			"name": "Game",
+			"path": "."
+		}
+	],
+    "settings": {}
+}
