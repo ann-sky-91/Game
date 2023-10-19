@@ -1,5 +1,7 @@
+import { Mesh, BoxGeometry, MeshNormalMaterial } from 'three/src/Three'
+
 const Box = Fc.pure(() => {
-    const mesh = new Three.Mesh(new Three.BoxGeometry(1, 1, 1), new Three.MeshNormalMaterial())
+    const mesh = new Mesh(new BoxGeometry(1, 1, 1), new MeshNormalMaterial())
 
     return mesh
 })

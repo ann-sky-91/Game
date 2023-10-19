@@ -9,31 +9,30 @@ interface Player extends Body3Able {
 }
 const Player = Fc<Player>(() => {
     Fc.public(() => {
-        move
+        to0x0
     })
 
     let { x, y } = Fc.super(Body3Able)
-    const { z } = Fc.super(Body3Able)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { movement, acceleration } = Fc.super(Body3Able)
+    const { z, acceleration } = Fc.super(Body3Able)
 
     const { scene } = Fc.context(Game)
 
     const view = new Box().in(this, scene)
 
-    new WasdController(this)
+    new WasdController(this, acceleration)
 
     AnimationFrames(this, () => {
-        acceleration.z = 0.1
-
         view.position.x = x
         view.position.y = y
         view.position.z = z
-
-        view.rotation.y += 0.01
     })
 
-    function move(): void {
+    Frame(this, dt => {
+        // eslint-disable-next-line no-console
+        console.log(dt)
+    })
+
+    function to0x0(): void {
         x = 0
         y = 0
     }

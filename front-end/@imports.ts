@@ -6,5 +6,7 @@ import 'hooks/@global'
 import 'features/Fc.global'
 import 'controllers/@global'
 
+import 'events/animation-frame'
+
 import 'react.global'
 import 'three.global'

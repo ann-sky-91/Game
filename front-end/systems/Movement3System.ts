@@ -1,6 +1,6 @@
-import Acceleration3Able from 'front-end/components/Acceleration3Able'
-import Move3Able from 'front-end/components/Move3Able'
-import Position3Able from 'front-end/components/Position3Able'
+import Acceleration3Able from 'ables/Acceleration3Able'
+import Move3Able from 'ables/Move3Able'
+import Position3Able from 'ables/Position3Able'
 
 export default class Movement3System {
     static Components = {

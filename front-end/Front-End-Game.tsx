@@ -1,13 +1,15 @@
 import 'front-end/@imports'
 const cx = classnames('Game', await import('./Front-End-Game.module.scss'))
+import { Scene, PerspectiveCamera, WebGLRenderer, GridHelper } from 'three/src/Three'
+
 import Player from './entities/Player'
 import Movement3System from './systems/Movement3System'
 
 interface Game {
     player: Player
-    renderer: Three.WebGLRenderer
-    camera: Three.PerspectiveCamera
-    scene: Three.Scene
+    renderer: WebGLRenderer
+    camera: PerspectiveCamera
+    scene: Scene
     canvas: HTMLCanvasElement
 }
 const Game = context<Game>(() => {
@@ -25,10 +27,10 @@ export default Game
 function createContext(): Game {
     const state = new Entities([new Movement3System()]) as Entities & Game
 
-    const scene = (state.scene = new Three.Scene())
-    state.scene.add(new Three.GridHelper(5, 5))
+    const scene = (state.scene = new Scene())
+    state.scene.add(new GridHelper(5, 50, 0x883300, 0x333333))
 
-    const camera = (state.camera = new Three.PerspectiveCamera(
+    const camera = (state.camera = new PerspectiveCamera(
         50,
         window.innerWidth / window.innerHeight,
         0.1,
@@ -37,7 +39,7 @@ function createContext(): Game {
     camera.position.set(1.5, 1.5, 1.5)
     camera.lookAt(0, 0, 0)
 
-    const renderer = (state.renderer = new Three.WebGLRenderer())
+    const renderer = (state.renderer = new WebGLRenderer())
     state.canvas = renderer.domElement
     document.querySelector('#root').before(state.canvas)
     cx`canvas` && state.canvas.classList.add(cx`canvas`)
@@ -54,9 +56,12 @@ function createContext(): Game {
         state.player = new Player(state)
     }, state)
 
+    const emitFrame = emittingFrame(state, { auto: false })
+
     AnimationFrames(state, () => {
-        renderer.render(scene, camera)
         state.run()
+        emitFrame()
+        renderer.render(scene, camera)
     })
 
     return state

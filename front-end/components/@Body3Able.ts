@@ -1,6 +1,6 @@
-import Acceleration3Able from './Acceleration3Able'
-import Move3Able from './Move3Able'
-import Position3Able from './Position3Able'
+import Acceleration3Able from 'ables/Acceleration3Able'
+import Move3Able from 'ables/Move3Able'
+import Position3Able from 'ables/Position3Able'
 
 interface Body3Able extends Position3Able {
     movement: Move3Able
