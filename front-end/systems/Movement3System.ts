@@ -1,6 +1,7 @@
 import Acceleration3Able from 'ables/Acceleration3Able'
 import Move3Able from 'ables/Move3Able'
 import Position3Able from 'ables/Position3Able'
+import { Vector3 } from 'three/src/Three'
 
 export default class Movement3System {
     static Components = {
@@ -22,9 +23,7 @@ export default class Movement3System {
             const position = entity.Position3Able
             const movement = entity.Move3Able
 
-            position.add(
-                new Three.Vector3(movement.x, movement.y, movement.z).multiplyScalar(dt / 1000)
-            )
+            position.add(new Vector3(movement.x, movement.y, movement.z).multiplyScalar(dt / 1000))
         })
 
         this.acceleration.forEach(entity => {
@@ -32,7 +31,7 @@ export default class Movement3System {
             const acceleration = entity.Acceleration3Able
 
             movement.add(
-                new Three.Vector3(acceleration.x, acceleration.y, acceleration.z).multiplyScalar(
+                new Vector3(acceleration.x, acceleration.y, acceleration.z).multiplyScalar(
                     dt / 1000
                 )
             )

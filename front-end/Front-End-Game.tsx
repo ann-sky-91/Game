@@ -28,7 +28,7 @@ function createContext(): Game {
     const state = new Entities([new Movement3System()]) as Entities & Game
 
     const scene = (state.scene = new Scene())
-    state.scene.add(new GridHelper(5, 50, 0x883300, 0x333333))
+    scene.add(new GridHelper(100, 500, 0x883300, 0x333333))
 
     const camera = (state.camera = new PerspectiveCamera(
         50,
@@ -36,7 +36,8 @@ function createContext(): Game {
         0.1,
         1000
     ))
-    camera.position.set(1.5, 1.5, 1.5)
+    camera.position.set(0, 3, 3)
+    camera.updateProjectionMatrix()
     camera.lookAt(0, 0, 0)
 
     const renderer = (state.renderer = new WebGLRenderer())
