@@ -20,16 +20,18 @@ const Player = Fc<Player>(() => {
 
     const view = new Box().in(this, scene)
 
-    new WasdController(this, acceleration)
+    {
+        const v = new Vector3()
+        new WasdController(this, v)
+        Frame(this, () => {
+            acceleration.copy(v)
+        })
+    }
 
     Frame(this, () => {
         view.position.x = x
         view.position.y = y
         view.position.z = z
-
-        acceleration.multiplyScalar(1.1)
-
-        view.rotation.y += (acceleration.angleTo(new Vector3(1, 0, 0)) - view.rotation.y) / 10
 
         camera.lookAt(x, y, z)
     })
