@@ -25,7 +25,7 @@ const Player = Fc<Player>(() => {
         new WasdController(this, v)
         Frame(this, () => {
             acceleration.copy(v)
-            acceleration.multiplyScalar(10)
+            acceleration.multiplyScalar(20)
         })
     }
 
