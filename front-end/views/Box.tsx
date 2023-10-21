@@ -1,7 +1,11 @@
 import { Mesh, BoxGeometry, MeshNormalMaterial } from 'three/src/Three'
 
-const Box = Fc.pure(() => {
-    const mesh = new Mesh(new BoxGeometry(1, 1, 1), new MeshNormalMaterial())
+const Box = Fc.pure((size?: number) => {
+    size ??= 1
+
+    const mesh = new Mesh(new BoxGeometry(1, 1, size), new MeshNormalMaterial())
+
+    mesh.position.z = size / 2
 
     return mesh
 })

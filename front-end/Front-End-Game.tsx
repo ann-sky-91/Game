@@ -1,5 +1,6 @@
 import 'front-end/@imports'
 const cx = classnames('Game', await import('./Front-End-Game.module.scss'))
+import Tree from 'front-end/entities/Tree'
 import { Scene, PerspectiveCamera, WebGLRenderer, GridHelper } from 'three/src/Three'
 
 import Player from './entities/Player'
@@ -47,7 +48,6 @@ function createContext(): Game {
     const renderer = (state.renderer = new WebGLRenderer({
         premultipliedAlpha: true,
         antialias: true,
-        precision: 'high',
     }))
     state.canvas = renderer.domElement
     document.querySelector('#root').before(state.canvas)
@@ -63,6 +63,8 @@ function createContext(): Game {
 
     Game.run(() => {
         state.player = new Player(state)
+
+        new Tree(state)
     }, state)
 
     const emitFrame = emittingFrame(state, { auto: false })

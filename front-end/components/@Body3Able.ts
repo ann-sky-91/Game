@@ -19,7 +19,7 @@ const Body3Able = Fc<Body3Able>(() => {
 
     const movement = new Move3Able(this)
     const acceleration = new Acceleration3Able(this)
-    const friction = new LinearFriction3Able(this, percents(10))
+    const friction = new LinearFriction3Able(this, percents(20))
 })
 
 export default Body3Able

@@ -1,7 +1,6 @@
 import Body3Able from 'front-end/components/@Body3Able'
 import Game from 'front-end/Front-End-Game'
 import Box from 'front-end/views/Box'
-import { Vector3 } from 'three/src/Three'
 
 interface Player extends Body3Able {
     view: Three.Mesh
@@ -20,21 +19,16 @@ const Player = Fc<Player>(() => {
 
     const view = new Box().in(this, scene)
 
-    {
-        const v = new Vector3()
-        new WasdController(this, v)
-        Frame(this, () => {
-            acceleration.copy(v)
-            acceleration.multiplyScalar(20)
-        })
-    }
+    new WasdController(this, acceleration, 200)
 
     Frame(this, () => {
         view.position.x = x
         view.position.y = y
-        view.position.z = z
+        view.position.z = 1 / 2
 
         camera.lookAt(x, y, z)
+        camera.position.x = x
+        camera.position.y = y - 10
     })
 
     function to0x0(): void {
