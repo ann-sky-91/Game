@@ -13,8 +13,8 @@ const Player = Fc<Player>(() => {
         to0x0
     })
 
-    let { x, y } = Fc.super(Body3Able)
-    const { z, acceleration } = Fc.super(Body3Able)
+    const { acceleration } = Fc.super(Body3Able)
+    let { x, y, z } = Fc.super(Body3Able)
 
     const { scene, camera } = Fc.context(Game)
 
@@ -27,7 +27,7 @@ const Player = Fc<Player>(() => {
         view.position.y = y
         view.position.z = z
 
-        console.log((acceleration.angleTo(new Vector3(1, 0, 0)) / Math.PI) * 180)
+        acceleration.multiplyScalar(1.1)
 
         view.rotation.y += (acceleration.angleTo(new Vector3(1, 0, 0)) - view.rotation.y) / 10
 
@@ -37,6 +37,7 @@ const Player = Fc<Player>(() => {
     function to0x0(): void {
         x = 0
         y = 0
+        z = 0
     }
 })
 

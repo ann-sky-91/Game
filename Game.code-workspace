@@ -11,7 +11,11 @@
 		{
 			"name": "Game",
 			"path": "."
-		}
+		},
+        {
+            "name": "Game @ Front-End",
+            "path": "./front-end/"
+        }
 	],
     "settings": {}
 }

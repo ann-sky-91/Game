@@ -5,7 +5,7 @@ import { Scene, PerspectiveCamera, WebGLRenderer, GridHelper } from 'three/src/T
 import Player from './entities/Player'
 import Movement3System from './systems/Movement3System'
 
-interface Game {
+interface Game extends Entities {
     player: Player
     renderer: WebGLRenderer
     camera: PerspectiveCamera
@@ -13,12 +13,16 @@ interface Game {
     canvas: HTMLCanvasElement
 }
 const Game = context<Game>(() => {
-    const { player } = useMemo(createContext, [])
+    const state = useMemo(createContext, [])
+    const { player } = state
+
+    const [, update] = useState(false)
+    AnimationFrames(state, () => update(v => !v))
 
     return (
-        <>
-            {player.x}, {player.y}
-        </>
+        <div className='panel'>
+            {player.x.toFixed(2)}, {player.y.toFixed(2)}
+        </div>
     )
 })
 
@@ -28,7 +32,7 @@ function createContext(): Game {
     const state = new Entities([new Movement3System()]) as Entities & Game
 
     const scene = (state.scene = new Scene())
-    scene.add(new GridHelper(100, 500, 0x883300, 0x333333))
+    scene.add(new GridHelper(100, 500, 0x883300, 0x333333).rotateX(Math.PI / 2))
 
     const camera = (state.camera = new PerspectiveCamera(
         50,
@@ -36,8 +40,8 @@ function createContext(): Game {
         0.1,
         1000
     ))
-    camera.position.set(0, 3, 3)
-    camera.updateProjectionMatrix()
+    camera.up.set(0, 0, 1)
+    camera.position.set(0, -3, 10)
     camera.lookAt(0, 0, 0)
 
     const renderer = (state.renderer = new WebGLRenderer())
@@ -58,7 +62,6 @@ function createContext(): Game {
     }, state)
 
     const emitFrame = emittingFrame(state, { auto: false })
-
     AnimationFrames(state, () => {
         state.run()
         emitFrame()
