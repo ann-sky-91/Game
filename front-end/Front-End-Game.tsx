@@ -44,7 +44,11 @@ function createContext(): Game {
     camera.position.set(0, -3, 10)
     camera.lookAt(0, 0, 0)
 
-    const renderer = (state.renderer = new WebGLRenderer())
+    const renderer = (state.renderer = new WebGLRenderer({
+        premultipliedAlpha: true,
+        antialias: true,
+        precision: 'high',
+    }))
     state.canvas = renderer.domElement
     document.querySelector('#root').before(state.canvas)
     cx`canvas` && state.canvas.classList.add(cx`canvas`)
