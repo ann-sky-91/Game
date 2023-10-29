@@ -4,11 +4,11 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "front-end: dev": "sky.browser.dev front-end",
-        "front-end: build": "sky.browser.build front-end",
-        "front-end: production": "sky.browser.production front-end --no-open",
-        "back-end: dev": "sky.node.dev back-end",
-        "back-end: production": "sky.node.production back-end",
+        "front-end: dev": "sky-browser-dev front-end",
+        "front-end: build": "sky-browser-build front-end",
+        "front-end: production": "sky-browser-production front-end --no-open",
+        "back-end: dev": "sky-node-dev back-end",
+        "back-end: production": "sky-node-production back-end",
         "format": "eslint --fix **/*.{ts,tsx}"
     },
     "devDependencies": {
@@ -20,8 +20,5 @@
         "eslint-plugin-react": "^7.33.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "prettier": "^3.0.3"
-    },
-    "dependencies": {
-        "axios": "^1.5.1"
     }
 }
