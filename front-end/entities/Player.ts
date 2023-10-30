@@ -19,7 +19,11 @@ const Player = Fc<Player>(() => {
 
     const view = new Box().in(this, scene)
 
-    new WasdController(this, acceleration, 200)
+    new WasdController(this, {
+        camera,
+        acceleration,
+        force: 200,
+    })
 
     Frame(this, () => {
         view.position.x = x

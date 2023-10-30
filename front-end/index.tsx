@@ -6,4 +6,5 @@ import Game from './Front-End-Game'
 
 import './index.scss'
 
-createRoot(document.querySelector('#root')!).render(<Game />)
+const root = createRoot(document.querySelector('#root')!)
+root.render(<Game />)

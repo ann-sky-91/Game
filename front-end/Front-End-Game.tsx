@@ -1,10 +1,13 @@
 import 'front-end/@imports'
 const cx = classnames('Game', await import('./Front-End-Game.module.scss'))
 import Tree from 'front-end/entities/Tree'
+import Acceleration3System from 'systems/Acceleration3System'
+import Friction3System from 'systems/Friction3System'
+import Linear3FrictionSystem from 'systems/Linear3FrictionSystem'
+import Movement3System from 'systems/Movement3System'
 import { Scene, PerspectiveCamera, WebGLRenderer, GridHelper } from 'three/src/Three'
 
 import Player from './entities/Player'
-import Movement3System from './systems/Movement3System'
 
 interface Game extends Entities {
     player: Player
@@ -14,23 +17,31 @@ interface Game extends Entities {
     canvas: HTMLCanvasElement
 }
 const Game = context<Game>(() => {
-    const state = useMemo(createContext, [])
+    const state = useMemo(() => {
+        try {
+            return createContext()
+        } catch (err: unknown) {
+            return {}
+        }
+    }, [])
+
     const { player } = state
 
-    const [, update] = useState(false)
-    AnimationFrames(state, () => update(v => !v))
+    // const [, update] = useState(false)
+    // AnimationFrames(state, () => update(v => !v))
 
-    return (
-        <div className='panel'>
-            {player.x.toFixed(2)}, {player.y.toFixed(2)}
-        </div>
-    )
+    return <div className='panel'>{/* {player.x.toFixed(2)}, {player.y.toFixed(2)} */}</div>
 })
 
 export default Game
 
-function createContext(): Game {
-    const state = new Entities([new Movement3System()]) as Entities & Game
+export function createContext(): Game {
+    const state = new Entities([
+        new Movement3System(),
+        new Friction3System(),
+        new Linear3FrictionSystem(),
+        new Acceleration3System(),
+    ]) as Entities & Game
 
     const scene = (state.scene = new Scene())
     scene.add(new GridHelper(100, 500, 0x883300, 0x333333).rotateX(Math.PI / 2))
@@ -63,7 +74,6 @@ function createContext(): Game {
 
     Game.run(() => {
         state.player = new Player(state)
-
         new Tree(state)
     }, state)
 
