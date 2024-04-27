@@ -1,7 +1,7 @@
 {
     "name": "game",
+    "type": "module",
     "scripts": {
-        "sky": "sky",
         "front-end: dev": "sky browser dev front-end",
         "front-end: build": "sky browser build front-end",
         "front-end: production": "sky browser start front-end --no-open",

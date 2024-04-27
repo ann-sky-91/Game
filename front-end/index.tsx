@@ -1,10 +1,8 @@
 import 'front-end/@imports'
-import { createRoot } from 'react-dom/client'
 import 'styles/Page.scss'
 
-import Game from './Front-End-Game'
+import Game from './Front-End-Game.tsx'
 
 import './index.scss'
 
-const root = createRoot(document.querySelector('#root')!)
-root.render(<Game />)
+export const App = <Game />

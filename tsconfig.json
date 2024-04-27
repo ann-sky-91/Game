@@ -18,9 +18,15 @@
             "*": [
                 "../Modules/*",
                 "../Modules/node_modules/*"
+            ],
+            "front-end/*": [
+                "front-end/*"
             ]
         }
     },
+    "include": [
+        "front-end"
+    ],
     "exclude": [
         "node_modules",
         "../Modules/node_modules"
