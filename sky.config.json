@@ -10,6 +10,11 @@
         }
     ],
     "tests": [],
-    "scripts": [],
-    "modules": []
+    "modules": [
+        {
+            "name": "Shared",
+            "path": "shared"
+        }
+    ],
+    "scripts": []
 }

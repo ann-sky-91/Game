@@ -16,19 +16,25 @@
         "baseUrl": ".",
         "paths": {
             "*": [
+                "shared/node_modules/*",
                 "../Modules/*",
                 "../Modules/node_modules/*"
             ],
             "front-end/*": [
                 "front-end/*"
+            ],
+            "shared/*": [
+                "shared/*"
             ]
         }
     },
     "include": [
-        "front-end"
+        "front-end",
+        "shared"
     ],
     "exclude": [
         "node_modules",
+        "shared/node_modules",
         "../Modules/node_modules"
     ]
 }
