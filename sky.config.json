@@ -14,6 +14,10 @@
         {
             "name": "Shared",
             "path": "shared"
+        },
+        {
+            "name": "BackEnd",
+            "path": "back-end"
         }
     ],
     "scripts": []

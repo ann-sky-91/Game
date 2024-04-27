@@ -17,6 +17,7 @@
         "paths": {
             "*": [
                 "shared/node_modules/*",
+                "back-end/node_modules/*",
                 "../Modules/*",
                 "../Modules/node_modules/*"
             ],
@@ -25,16 +26,21 @@
             ],
             "shared/*": [
                 "shared/*"
+            ],
+            "back-end/*": [
+                "back-end/*"
             ]
         }
     },
     "include": [
         "front-end",
-        "shared"
+        "shared",
+        "back-end"
     ],
     "exclude": [
         "node_modules",
         "shared/node_modules",
+        "back-end/node_modules",
         "../Modules/node_modules"
     ]
 }
