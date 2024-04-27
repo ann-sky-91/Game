@@ -15,7 +15,7 @@ const Player = Fc<Player>(() => {
     const { acceleration } = Fc.super(Body3Able)
     let { x, y, z } = Fc.super(Body3Able)
 
-    const { scene, camera } = Fc.context(Game)
+    const { scene, camera } = context(Game)
 
     const view = new Box().in(this, scene)
 
