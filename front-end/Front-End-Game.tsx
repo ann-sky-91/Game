@@ -9,6 +9,8 @@ import { Scene, PerspectiveCamera, WebGLRenderer, GridHelper } from 'three/src/T
 
 import Player from './entities/Player'
 
+export default Game
+
 interface Game extends Entities {
     player: Player
     renderer: WebGLRenderer
@@ -20,9 +22,7 @@ function Game() {
     return <div className='panel'>{/* {player.x.toFixed(2)}, {player.y.toFixed(2)} */}</div>
 }
 
-export default Game
-
-export function createContext(): Game {
+Game.create = () => {
     const state = new Entities([
         new Movement3System(),
         new Friction3System(),
@@ -59,17 +59,13 @@ export function createContext(): Game {
         camera.updateProjectionMatrix()
     })
 
-    Game.run(() => {
-        state.player = new Player(state)
-        new Tree(state)
-    }, state)
-
-    const emitFrame = emittingFrame(state, { auto: false })
     AnimationFrames(state, () => {
         state.run()
-        emitFrame()
         renderer.render(scene, camera)
     })
+
+    state.player = new Player(state)
+    new Tree(state)
 
     return state
 }
