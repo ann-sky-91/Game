@@ -1,13 +1,13 @@
 .canvas {
     @apply
-        position-absolute
+        absolute
         w-full h-full
         t-0 b-0 l-0 r-0;
 }
 
 .panel {
     @apply
-        position-absolute
+        absolute
         t-[10px] l-[10px]
         text-black bg-white
         px-[10px] py-[20px]

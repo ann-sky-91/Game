@@ -5,7 +5,8 @@
             "entry": "front-end/index.tsx",
             "platforms": [
                 "native"
-            ]
+            ],
+            "public": "public"
         }
     ],
     "tests": [],

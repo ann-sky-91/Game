@@ -1,11 +1,5 @@
 export namespace Shared {
-    export const Game = Ns.Game
+    export const Game = Fc<{}>(() => {
+        //
+    })
 }
-
-function Ns(): void {
-    //
-}
-
-Ns.Game = Fc<{}>(() => {
-    //
-})
