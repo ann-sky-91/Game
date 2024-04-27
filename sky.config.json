@@ -1,0 +1,13 @@
+{
+    "apps": [
+        {
+            "name": "Game",
+            "entry": "front-end/index.tsx",
+            "platforms": [
+                "native"
+            ]
+        }
+    ],
+    "tests": [],
+    "scripts": []
+}

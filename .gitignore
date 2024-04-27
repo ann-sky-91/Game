@@ -5,11 +5,8 @@
 /.pnp
 .pnp.js
 
-# testing
-/coverage
-
 # production
-/build
+/dist
 
 # misc
 .DS_Store
@@ -21,3 +18,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.idea/
+.vscode/
+.sky/
+/*.code-workspace
+/.env
