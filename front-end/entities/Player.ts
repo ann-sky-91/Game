@@ -25,7 +25,7 @@ const Player = Fc<Player>(() => {
         force: 200,
     })
 
-    Frame(this, () => {
+    onFrame(this, () => {
         view.position.x = x
         view.position.y = y
         view.position.z = 1 / 2
