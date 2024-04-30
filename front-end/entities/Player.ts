@@ -2,7 +2,7 @@ import Body3Able from 'front-end/components/@Body3Able'
 import Game from 'front-end/Front-End-Game'
 import Box from 'front-end/views/Box'
 
-interface Player extends Link, Body3Able {
+interface Player extends Entity, Body3Able {
     view: Three.Mesh
 
     to0x0(): void
@@ -11,8 +11,9 @@ interface Player extends Link, Body3Able {
 interface PlayerOptions {
 
 }
+
 const Player = Fc((parent: Parent, options: PlayerOptions = {}): as<Player> => {
-    const { context } = Fc.super(Link, parent)
+    const { context } = Fc.super(Entity, parent)
 
     Fc.public(() => {
         to0x0
@@ -24,7 +25,7 @@ const Player = Fc((parent: Parent, options: PlayerOptions = {}): as<Player> => {
     const { scene, camera } = context(Game)
 
     const view = new Box()
-    //view.in(scene, [this, Game])
+    new InScene(view, scene, [this, Game])
 
     new WasdController(this, {
         camera,

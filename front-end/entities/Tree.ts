@@ -8,8 +8,8 @@ const Tree = Fc((parent: Parent, options = {}): as<Tree> => {
 
     const { scene } = context(Game)
 
-    new Box(5)
-    //.in(scene, [this, Game])
+    const view = new Box(5)
+    new InScene(view, scene, [this, Game])
 })
 
 export default Tree
