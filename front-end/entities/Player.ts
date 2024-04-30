@@ -2,17 +2,22 @@ import Body3Able from 'front-end/components/@Body3Able'
 import Game from 'front-end/Front-End-Game'
 import Box from 'front-end/views/Box'
 
-interface Player extends Body3Able {
+interface Player extends Link, Body3Able {
     view: Three.Mesh
 
     move(): number
 }
-const Player = Fc<Player>(() => {
+interface PlayerOptions {
+
+}
+const Player = Fc((parent: Parent, options = {}): Player => {
+    const { context } = Fc.super(Link, parent)
+
     Fc.public(() => {
         to0x0
     })
 
-    const { acceleration } = Fc.super(Body3Able)
+    const { acceleration } = Fc.super(Body3Able, parent)
     let { x, y, z } = Fc.super(Body3Able)
 
     const { scene, camera } = context(Game)
@@ -33,7 +38,7 @@ const Player = Fc<Player>(() => {
         camera.lookAt(x, y, z)
         camera.position.x = x
         camera.position.y = y - 10
-    })
+    }, [this])
 
     function to0x0(): void {
         x = 0

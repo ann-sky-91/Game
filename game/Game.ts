@@ -1,7 +1,6 @@
 import 'game/@imports'
 
-export namespace Shared {
-    export const Game = Fc<{}>(() => {
-        //
-    })
-}
+interface Game {}
+export const Game = Fc<Game>(() => {
+    //
+})

@@ -1,8 +1,8 @@
 import 'front-end/@imports'
 import 'styles/Page.scss'
 
-import Game from './Front-End-Game.tsx'
-
 import './index.scss'
+import Game from './Front-End-Game'
 
-export const App = <Game />
+new Game()
+
