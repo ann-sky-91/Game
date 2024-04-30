@@ -11,7 +11,6 @@ interface Player extends Entity, Body3Able {
 interface PlayerOptions {
 
 }
-
 const Player = Fc(function (this: Player, parent: Parent, options: PlayerOptions = {}) {
     const { context } = Fc.super(Entity, parent)
 
