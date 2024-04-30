@@ -17,7 +17,7 @@ interface Game extends Root {
     scene: Scene
     canvas: HTMLCanvasElement
 }
-const Game = Fc.context<Game>(() => {
+const Game = Fc.context((): as<Game> => {
     Fc.super(Root)
 
     Fc.public(() => {

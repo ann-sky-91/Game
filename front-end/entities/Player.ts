@@ -5,24 +5,26 @@ import Box from 'front-end/views/Box'
 interface Player extends Link, Body3Able {
     view: Three.Mesh
 
+    to0x0(): void
     move(): number
 }
 interface PlayerOptions {
 
 }
-const Player = Fc((parent: Parent, options = {}): Player => {
+const Player = Fc((parent: Parent, options: PlayerOptions = {}): as<Player> => {
     const { context } = Fc.super(Link, parent)
 
     Fc.public(() => {
         to0x0
     })
 
-    const { acceleration } = Fc.super(Body3Able, parent)
+    const { acceleration } = Fc.super(Body3Able)
     let { x, y, z } = Fc.super(Body3Able)
 
     const { scene, camera } = context(Game)
 
-    const view = new Box().in(this, scene)
+    const view = new Box()
+    //view.in(scene, [this, Game])
 
     new WasdController(this, {
         camera,

@@ -1,8 +1,5 @@
 import { Mesh, BoxGeometry, MeshNormalMaterial } from 'three/src/Three'
 
-interface Box {
-    size: number
-}
 const Box = Fc((size?: number) => {
     size ??= 1
 
