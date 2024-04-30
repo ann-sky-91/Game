@@ -2,15 +2,15 @@
     @apply
         absolute
         w-full h-full
-        t-0 b-0 l-0 r-0;
+        top-0 bottom-0 left-0 right-0;
 }
 
 .panel {
     @apply
         absolute
-        t-[10px] l-[10px]
+        top-[10px] left-[10px]
         text-black bg-white
         px-[10px] py-[20px]
-        border-radius-[20px]
-        z-index-2;
+        border-[20px]
+        z-[2];
 }
