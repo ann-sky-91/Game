@@ -16,31 +16,25 @@
         "baseUrl": ".",
         "paths": {
             "*": [
-                "shared-game/node_modules/*",
-                "back-end/node_modules/*",
+                "game/node_modules/*",
                 "../Modules/*",
                 "../Modules/node_modules/*"
             ],
             "front-end/*": [
                 "front-end/*"
             ],
-            "shared/*": [
-                "shared-game/*"
-            ],
-            "back-end/*": [
-                "back-end/*"
+            "game/*": [
+                "game/*"
             ]
         }
     },
     "include": [
         "front-end",
-        "shared-game",
-        "back-end"
+        "game"
     ],
     "exclude": [
         "node_modules",
-        "shared-game/node_modules",
-        "back-end/node_modules",
+        "game/node_modules",
         "../Modules/node_modules"
     ]
 }

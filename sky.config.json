@@ -10,5 +10,11 @@
         }
     ],
     "tests": [],
+    "modules": [
+        {
+            "name": "game",
+            "path": "game"
+        }
+    ],
     "scripts": []
 }
