@@ -1,7 +1,7 @@
 {
     "apps": [
         {
-            "name": "Game",
+            "name": "front-end",
             "entry": "front-end/index.tsx",
             "platforms": [
                 "native"
@@ -10,15 +10,5 @@
         }
     ],
     "tests": [],
-    "modules": [
-        {
-            "name": "Shared",
-            "path": "shared"
-        },
-        {
-            "name": "BackEnd",
-            "path": "back-end"
-        }
-    ],
     "scripts": []
 }
