@@ -3,7 +3,7 @@ import Box from 'front-end/views/Box'
 
 interface Tree extends Entity {}
 interface TreeOptions {}
-const Tree = Fc((parent: Parent, options = {}): as<Tree> => {
+const Tree = Fc(function (this: Tree, parent: Parent, options = {}) {
     const { context } = parent
 
     const { scene } = context(Game)

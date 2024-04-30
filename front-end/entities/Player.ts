@@ -12,15 +12,15 @@ interface PlayerOptions {
 
 }
 
-const Player = Fc((parent: Parent, options: PlayerOptions = {}): as<Player> => {
+const Player = Fc(function (this: Player, parent: Parent, options: PlayerOptions = {}) {
     const { context } = Fc.super(Entity, parent)
 
     Fc.public(() => {
         to0x0
     })
 
-    const { acceleration } = Fc.super(Body3Able)
-    let { x, y, z } = Fc.super(Body3Able)
+    const { acceleration } = Fc.super(Body3Able, this)
+    let { x, y, z } = Fc.super(Body3Able, this)
 
     const { scene, camera } = context(Game)
 

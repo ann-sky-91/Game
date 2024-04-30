@@ -8,8 +8,8 @@ interface Body3Able extends Position3Able {
     acceleration: Acceleration3Able
     friction: LinearFriction3Able
 }
-const Body3Able = Fc((): as<Body3Able> => {
-    Fc.super(Position3Able)
+const Body3Able = Fc(function (this: Body3Able, entity: Entity) {
+    Fc.super(Position3Able, entity)
 
     Fc.public(() => {
         movement
@@ -17,9 +17,9 @@ const Body3Able = Fc((): as<Body3Able> => {
         friction
     })
 
-    const movement = new Move3Able(this)
-    const acceleration = new Acceleration3Able(this)
-    const friction = new LinearFriction3Able(this, percents(20))
+    const movement = new Move3Able(entity)
+    const acceleration = new Acceleration3Able(entity)
+    const friction = new LinearFriction3Able(entity, percents(20))
 })
 
 export default Body3Able

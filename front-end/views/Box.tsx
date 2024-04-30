@@ -1,6 +1,6 @@
 import { Mesh, BoxGeometry, MeshNormalMaterial } from 'three/src/Three'
 
-const Box = Fc((size?: number) => {
+const Box = Fc(function (this: Mesh, size?: number) {
     size ??= 1
 
     const mesh = new Mesh(new BoxGeometry(1, 1, size), new MeshNormalMaterial())
