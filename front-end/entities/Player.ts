@@ -57,7 +57,7 @@ export default class Player extends Entity {
         new InScene(view, scene, [this, Game])
     }
 
-    onFrame(): void {
+    onAnimationFrame(): void {
         const { view } = this
         const { camera } = this.context(Game)
         const { position } = this.Position3Able
@@ -69,8 +69,6 @@ export default class Player extends Entity {
         camera.lookAt(x, y, z)
         camera.position.x = x
         camera.position.y = y - 10
-
-        console.log(this)
     }
 
     to0x0(): void {

@@ -5,7 +5,5 @@ import 'hooks/global'
 import 'features/ecs/global'
 import 'controllers/global'
 
-import 'events/animation-frame'
-
 import 'libs/react/global'
 import 'libs/three/global'

@@ -1,11 +1,14 @@
 import 'front-end/@imports'
 const cx = classnames('Game', await import('./Front-End-Game.module.scss'))
 import Tree from 'front-end/entities/Tree'
+import { createRoot } from 'react-dom/client'
 import Acceleration3System from 'systems/Acceleration3System'
 import Friction3System from 'systems/Friction3System'
 import LinearFriction3System from 'systems/LinearFriction3System'
 import Movement3System from 'systems/Movement3System'
 import { Scene, PerspectiveCamera, WebGLRenderer, GridHelper } from 'three/src/Three'
+
+const root = createRoot(document.querySelector('#root')!)
 
 import Player from './entities/Player'
 
@@ -64,6 +67,7 @@ export default class Game extends Root {
         new AnimationFrames(() => {
             systems.run()
             renderer.render(scene, camera)
+            this.emit('onAnimationFrame')
         }, [this])
 
         const player = new Player(this)
@@ -78,5 +82,7 @@ export default class Game extends Root {
                 </div>
             )
         }
+
+        root.render(<this.UI />)
     }
 }
