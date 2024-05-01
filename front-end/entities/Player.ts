@@ -21,7 +21,13 @@ export default class Player extends Entity {
         new Acceleration3Able(this)
         new LinearFriction3Able(this, percentsPerSecond(20))
 
-        this.onGameContext()
+        new EventListener(
+            'mousedown',
+            () => {
+                this.onGameContext()
+            },
+            [this]
+        )
     }
 
     onGameContext(): void {
