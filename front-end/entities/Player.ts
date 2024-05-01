@@ -12,6 +12,7 @@ export default class Player extends Entity {
     LinearFriction3Able: LinearFriction3Able
 
     view: Three.Object3D
+    wasdController: WasdController
 
     constructor(parent: Parent) {
         super(parent)
@@ -21,26 +22,39 @@ export default class Player extends Entity {
         new Acceleration3Able(this)
         new LinearFriction3Able(this, percentsPerSecond(20))
 
+        this.onGameContext()
+
+        const { camera } = this.context(Game)
+
         new EventListener(
             'mousedown',
             () => {
-                this.onGameContext()
+                if (!this.context(Game) || this.wasdController) {
+                    return
+                }
+
+                new Effect(() => {
+                    const controller = (this.wasdController = new WasdController(this, {
+                        camera,
+                        acceleration: this.Acceleration3Able.acceleration,
+                        force: 200,
+                    }))
+
+                    return (): void => {
+                        controller.destroy()
+                        delete this.wasdController
+                    }
+                }, [this, Game])
             },
             [this]
         )
     }
 
     onGameContext(): void {
-        const { scene, camera } = this.context(Game)
+        const { scene } = this.context(Game)
 
         const view = (this.view = BoxView())
         new InScene(view, scene, [this, Game])
-
-        new WasdController(this, {
-            camera,
-            acceleration: this.Acceleration3Able.acceleration,
-            force: 200,
-        })
     }
 
     onFrame(): void {
@@ -55,6 +69,8 @@ export default class Player extends Entity {
         camera.lookAt(x, y, z)
         camera.position.x = x
         camera.position.y = y - 10
+
+        console.log(this)
     }
 
     to0x0(): void {
