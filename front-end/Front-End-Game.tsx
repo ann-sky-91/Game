@@ -20,42 +20,46 @@ export default class Game extends Root {
 
     constructor() {
         super()
-        
-        const systems = this.systems = new Systems([
+
+        const systems = (this.systems = new Systems([
             new Movement3System(),
             new Friction3System(),
             new LinearFriction3System(),
             new Acceleration3System(),
-        ])
+        ]))
 
-        const scene = this.scene = new Scene()
+        const scene = (this.scene = new Scene())
         scene.add(new GridHelper(100, 500, 0x883300, 0x333333).rotateX(Math.PI / 2))
 
-        const camera = this.camera = new PerspectiveCamera(
+        const camera = (this.camera = new PerspectiveCamera(
             50,
             window.innerWidth / window.innerHeight,
             0.1,
             1000
-        )
+        ))
         camera.up.set(0, 0, 1)
         camera.position.set(0, -3, 10)
         camera.lookAt(0, 0, 0)
 
-        const renderer = this.renderer = new WebGLRenderer({
+        const renderer = (this.renderer = new WebGLRenderer({
             premultipliedAlpha: true,
             antialias: true,
-        })
+        }))
         const canvas = renderer.domElement
         document.querySelector('#root').before(canvas)
         cx`canvas` && canvas.classList.add(cx`canvas`)
 
         renderer.setSize(window.innerWidth, window.innerWidth, false)
 
-        new EventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight, false)
-            camera.aspect = window.innerWidth / window.innerHeight
-            camera.updateProjectionMatrix()
-        }, [this])
+        new EventListener(
+            'resize',
+            () => {
+                renderer.setSize(window.innerWidth, window.innerHeight, false)
+                camera.aspect = window.innerWidth / window.innerHeight
+                camera.updateProjectionMatrix()
+            },
+            [this]
+        )
 
         new AnimationFrames(() => {
             systems.run()
@@ -65,14 +69,14 @@ export default class Game extends Root {
         const player = new Player(this)
         new Tree(this)
 
-        this.UI = () => {
+        this.UI = (): ReactNode => {
+            const { position } = player.Position3Able
+
             return (
-                <div className='panel'>
-                    {player.x.toFixed(2)}, {player.y.toFixed(2)}
+                <div className="panel">
+                    {position.x.toFixed(2)}, {position.y.toFixed(2)}
                 </div>
             )
         }
     }
-
-
 }

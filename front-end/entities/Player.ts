@@ -5,16 +5,15 @@ import Position3Able from 'ables/Position3Able'
 import Game from 'front-end/Front-End-Game'
 import BoxView from 'front-end/views/BoxView'
 
-interface PlayerOptions {
-
-}
 export default class Player extends Entity {
     Position3Able: Position3Able
     Move3Able: Move3Able
     Acceleration3Able: Acceleration3Able
     LinearFriction3Able: LinearFriction3Able
 
-    constructor(parent: Parent, options: PlayerOptions = {}) {
+    view: Three.Object3D
+
+    constructor(parent: Parent) {
         super(parent)
 
         new Position3Able(this)
@@ -22,28 +21,34 @@ export default class Player extends Entity {
         new Acceleration3Able(this)
         new LinearFriction3Able(this, percentsPerSecond(20))
 
+        this.onGameContext()
+    }
+
+    onGameContext(): void {
         const { scene, camera } = this.context(Game)
-    
-        const view = BoxView()
+
+        const view = (this.view = BoxView())
         new InScene(view, scene, [this, Game])
-    
+
         new WasdController(this, {
             camera,
             acceleration: this.Acceleration3Able.acceleration,
             force: 200,
         })
-    
-        onFrame(this, () => {
-            const { position } = this.Position3Able
-            const { x, y, z} = position
-            view.position.x = x
-            view.position.y = y
-            view.position.z = 1 / 2
-    
-            camera.lookAt(x, y, z)
-            camera.position.x = x
-            camera.position.y = y - 10
-        }, [this])
+    }
+
+    onFrame(): void {
+        const { view } = this
+        const { camera } = this.context(Game)
+        const { position } = this.Position3Able
+        const { x, y, z } = position
+        view.position.x = x
+        view.position.y = y
+        view.position.z = 1 / 2
+
+        camera.lookAt(x, y, z)
+        camera.position.x = x
+        camera.position.y = y - 10
     }
 
     to0x0(): void {
