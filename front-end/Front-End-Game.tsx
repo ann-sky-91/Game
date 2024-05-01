@@ -21,7 +21,7 @@ export default class Game extends Root {
     constructor() {
         super()
 
-        const systems = (this.systems = new Systems([
+        const systems = (this.systems = new Systems(this, [
             new Movement3System(),
             new Friction3System(),
             new LinearFriction3System(),
