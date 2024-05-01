@@ -9,79 +9,70 @@ import { Scene, PerspectiveCamera, WebGLRenderer, GridHelper } from 'three/src/T
 
 import Player from './entities/Player'
 
-interface Game extends Root {
+export default class Game extends Root {
+    static context = Symbol('GameContext')
+
     systems: Systems
-    player: Player
-    renderer: WebGLRenderer
-    camera: PerspectiveCamera
     scene: Scene
-    canvas: HTMLCanvasElement
-}
-const Game = Fc.context(function(this: Game) {
-    Fc.super(Root)
+    camera: PerspectiveCamera
+    renderer: WebGLRenderer
+    UI: React.FC
 
-    Fc.public(() => {
-        systems
-        player
-        renderer
-        camera
-        scene
-        canvas
+    constructor() {
+        super()
+        
+        const systems = this.systems = new Systems([
+            new Movement3System(),
+            new Friction3System(),
+            new LinearFriction3System(),
+            new Acceleration3System(),
+        ])
 
-        UI
-    })
-    
-    const systems = new Systems([
-        new Movement3System(),
-        new Friction3System(),
-        new LinearFriction3System(),
-        new Acceleration3System(),
-    ])
+        const scene = this.scene = new Scene()
+        scene.add(new GridHelper(100, 500, 0x883300, 0x333333).rotateX(Math.PI / 2))
 
-    const scene = new Scene()
-    scene.add(new GridHelper(100, 500, 0x883300, 0x333333).rotateX(Math.PI / 2))
-
-    const camera = new PerspectiveCamera(
-        50,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-    )
-    camera.up.set(0, 0, 1)
-    camera.position.set(0, -3, 10)
-    camera.lookAt(0, 0, 0)
-
-    const renderer = new WebGLRenderer({
-        premultipliedAlpha: true,
-        antialias: true,
-    })
-    const canvas = renderer.domElement
-    document.querySelector('#root').before(canvas)
-    cx`canvas` && canvas.classList.add(cx`canvas`)
-
-    renderer.setSize(window.innerWidth, window.innerWidth, false)
-
-    new EventListener('resize', () => {
-        renderer.setSize(window.innerWidth, window.innerHeight, false)
-        camera.aspect = window.innerWidth / window.innerHeight
-        camera.updateProjectionMatrix()
-    }, [this])
-
-    new AnimationFrames(() => {
-        systems.run()
-        renderer.render(scene, camera)
-    }, [this])
-
-    const player = new Player(this)
-    new Tree(this)
-
-    const UI = () => {
-        return (
-            <div className='panel'>
-                {player.x.toFixed(2)}, {player.y.toFixed(2)}
-            </div>
+        const camera = this.camera = new PerspectiveCamera(
+            50,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
         )
-    }
-})
+        camera.up.set(0, 0, 1)
+        camera.position.set(0, -3, 10)
+        camera.lookAt(0, 0, 0)
 
-export default Game
+        const renderer = this.renderer = new WebGLRenderer({
+            premultipliedAlpha: true,
+            antialias: true,
+        })
+        const canvas = renderer.domElement
+        document.querySelector('#root').before(canvas)
+        cx`canvas` && canvas.classList.add(cx`canvas`)
+
+        renderer.setSize(window.innerWidth, window.innerWidth, false)
+
+        new EventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight, false)
+            camera.aspect = window.innerWidth / window.innerHeight
+            camera.updateProjectionMatrix()
+        }, [this])
+
+        new AnimationFrames(() => {
+            systems.run()
+            renderer.render(scene, camera)
+        }, [this])
+
+        const player = new Player(this)
+        new Tree(this)
+
+        this.UI = () => {
+            return (
+                <div className='panel'>
+                    {player.x.toFixed(2)}, {player.y.toFixed(2)}
+                </div>
+            )
+        }
+    }
+
+
+}
