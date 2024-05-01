@@ -3,7 +3,7 @@ import LinearFriction3Able from 'ables/LinearFriction3Able'
 import Move3Able from 'ables/Move3Able'
 import Position3Able from 'ables/Position3Able'
 import Game from 'front-end/Front-End-Game'
-import Box from 'front-end/views/Box'
+import BoxView from 'front-end/views/BoxView'
 
 interface PlayerOptions {
 
@@ -24,7 +24,7 @@ export default class Player extends Entity {
 
         const { scene, camera } = this.context(Game)
     
-        const view = new Box()
+        const view = BoxView()
         new InScene(view, scene, [this, Game])
     
         new WasdController(this, {

@@ -1,15 +1,13 @@
 import Game from 'front-end/Front-End-Game'
-import Box from 'front-end/views/Box'
+import BoxView from 'front-end/views/BoxView'
 
-interface Tree extends Entity {}
-interface TreeOptions {}
-const Tree = Fc(function (this: Tree, parent: Parent, options = {}) {
-    const { context } = parent
+export default class Tree extends Entity {
+    constructor(parent: Parent) {
+        super(parent)
 
-    const { scene } = context(Game)
+        const { scene } = this.context(Game)
 
-    const view = new Box(5)
-    new InScene(view, scene, [this, Game])
-})
-
-export default Tree
+        const view = BoxView(5)
+        new InScene(view, scene, [this, Game])
+    }
+}
