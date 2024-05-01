@@ -4,6 +4,7 @@ import Move3Able from 'ables/Move3Able'
 import Position3Able from 'ables/Position3Able'
 import Game from 'front-end/Front-End-Game'
 import BoxView from 'front-end/views/BoxView'
+import Vector3 from 'math/Vector3'
 
 export default class Player extends Entity {
     Position3Able: Position3Able
@@ -26,28 +27,27 @@ export default class Player extends Entity {
 
         const { camera } = this.context(Game)
 
-        new EventListener(
-            'mousedown',
-            () => {
-                if (!this.context(Game) || this.wasdController) {
-                    return
-                }
+        const onControllersUpdate = (): void => {
+            const acceleration = new Vector3(wasdAcceleration.x, wasdAcceleration.y, 0)
+            acceleration.applyEuler(camera.rotation)
+            acceleration.z = 0
+            acceleration.normalize().multiplyScalar(200)
+            this.Acceleration3Able.acceleration.x = acceleration.x
+            this.Acceleration3Able.acceleration.y = acceleration.y
+        }
 
-                new Effect(() => {
-                    const controller = (this.wasdController = new WasdController(this, {
-                        camera,
-                        acceleration: this.Acceleration3Able.acceleration,
-                        force: 200,
-                    }))
+        const { acceleration: wasdAcceleration } = new WasdController(this, {
+            force: 1,
+            onUpdate: onControllersUpdate,
+        })
 
-                    return (): void => {
-                        controller.destroy()
-                        delete this.wasdController
-                    }
-                }, [this, Game])
-            },
-            [this]
-        )
+        new ThirdPersonCameraController(this, {
+            camera,
+            target: this.Position3Able.position,
+            onUpdate: onControllersUpdate,
+        })
+
+        new EventListener('mousedown', () => document.body.requestPointerLock(), [this])
     }
 
     onGameContext(): void {
@@ -59,16 +59,11 @@ export default class Player extends Entity {
 
     onAnimationFrame(): void {
         const { view } = this
-        const { camera } = this.context(Game)
         const { position } = this.Position3Able
-        const { x, y, z } = position
+        const { x, y } = position
         view.position.x = x
         view.position.y = y
         view.position.z = 1 / 2
-
-        camera.lookAt(x, y, z)
-        camera.position.x = x
-        camera.position.y = y - 10
     }
 
     to0x0(): void {

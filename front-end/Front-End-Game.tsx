@@ -19,7 +19,7 @@ export default class Game extends Root {
     scene: Scene
     camera: PerspectiveCamera
     renderer: WebGLRenderer
-    UI: React.FC
+    player: Player
 
     constructor() {
         super()
@@ -70,19 +70,29 @@ export default class Game extends Root {
             this.emit('onAnimationFrame')
         }, [this])
 
-        const player = new Player(this)
+        this.player = new Player(this)
         new Tree(this)
 
-        this.UI = (): ReactNode => {
-            const { position } = player.Position3Able
-
-            return (
-                <div className="panel">
-                    {position.x.toFixed(2)}, {position.y.toFixed(2)}
-                </div>
-            )
-        }
+        this.UI = this.UI.bind(this)
 
         root.render(<this.UI />)
+    }
+
+    UI = function UI(): ReactNode {
+        const { position } = this.player.Position3Able
+
+        const [, update] = useState(() => {
+            new AnimationFrames(() => {
+                update(value => !value)
+            }, [this])
+
+            return false
+        })
+
+        return (
+            <div className="panel">
+                {position.x.toFixed(2)}, {position.y.toFixed(2)}
+            </div>
+        )
     }
 }
