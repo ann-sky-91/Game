@@ -4,7 +4,7 @@ import Move3Able from 'ables/Move3Able'
 import Position3Able from 'ables/Position3Able'
 import Game from 'front-end/Front-End-Game'
 import BoxView from 'front-end/views/BoxView'
-import Vector3 from 'math/Vector3'
+import Vector2 from 'math/Vector2'
 
 @entity
 export default class Player extends Entity {
@@ -15,6 +15,7 @@ export default class Player extends Entity {
 
     view: Three.Object3D
     wasdController: WasdController
+    thirdPersonCameraController: ThirdPersonCameraController
 
     onGameContext(): void {
         new Position3Able(this)
@@ -25,26 +26,27 @@ export default class Player extends Entity {
         const { camera } = this.context(Game)
 
         const onControllersUpdate = (): void => {
-            const acceleration = new Vector3(
-                wasdController.acceleration.x,
-                wasdController.acceleration.y,
-                0
-            )
-            acceleration.applyEuler(this.getCameraDirection2D())
+            const acceleration = wasdController.acceleration
+                .clone()
+                .rotateAround(
+                    new Vector2(0, 0),
+                    Math.PI / 2 - thirdPersonCameraController.angles[0]
+                )
             this.Acceleration3Able.acceleration.x = acceleration.x
             this.Acceleration3Able.acceleration.y = acceleration.y
         }
 
-        const wasdController = new WasdController([this, Game], {
+        const wasdController = (this.wasdController = new WasdController([this, Game], {
             force: 200,
             onUpdate: onControllersUpdate,
-        })
+        }))
 
-        new ThirdPersonCameraController([this, Game], {
-            camera,
-            target: this.Position3Able.position,
-            onUpdate: onControllersUpdate,
-        })
+        const thirdPersonCameraController = (this.thirdPersonCameraController =
+            new ThirdPersonCameraController([this, Game], {
+                camera,
+                target: this.Position3Able.position,
+                onUpdate: onControllersUpdate,
+            }))
 
         new EventListener('mousedown', () => document.body.requestPointerLock(), [this, Game])
 
@@ -61,14 +63,11 @@ export default class Player extends Entity {
         view.position.x = x
         view.position.y = y
         view.position.z = 1 / 2
-        view.rotation.copy(this.getCameraDirection2D())
+        view.rotation.z = this.getCameraDirection2D()
     }
 
-    getCameraDirection2D = (): Three.Euler => {
-        const { camera } = this.context(Game)
-
-        const rotation = camera.rotation.clone()
-        return rotation
+    getCameraDirection2D = (): number => {
+        return Math.PI / 2 - this.thirdPersonCameraController.angles[0]
     }
 
     to0x0(): void {
