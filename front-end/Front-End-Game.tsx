@@ -6,7 +6,13 @@ import Acceleration3System from 'systems/Acceleration3System'
 import Friction3System from 'systems/Friction3System'
 import LinearFriction3System from 'systems/LinearFriction3System'
 import Movement3System from 'systems/Movement3System'
-import { Scene, PerspectiveCamera, WebGLRenderer, GridHelper } from 'three/src/Three'
+import {
+    DirectionalLight,
+    Scene,
+    PerspectiveCamera,
+    WebGLRenderer,
+    GridHelper,
+} from 'three/src/Three'
 
 const root = createRoot(document.querySelector('#root')!)
 
@@ -34,6 +40,12 @@ export default class Game extends Root {
         const scene = (this.scene = new Scene())
         scene.add(new GridHelper(100, 500, 0x883300, 0x333333).rotateX(Math.PI / 2))
 
+        const light = new DirectionalLight(0xffffff, 1)
+        light.position.set(0, 10, 0)
+        light.target.position.set(-5, 0, 0)
+        scene.add(light)
+        scene.add(light.target)
+
         const camera = (this.camera = new PerspectiveCamera(
             50,
             window.innerWidth / window.innerHeight,
@@ -41,8 +53,6 @@ export default class Game extends Root {
             1000
         ))
         camera.up.set(0, 0, 1)
-        camera.position.set(0, -3, 10)
-        camera.lookAt(0, 0, 0)
 
         const renderer = (this.renderer = new WebGLRenderer({
             premultipliedAlpha: true,
