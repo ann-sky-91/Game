@@ -1,6 +1,7 @@
 import Game from 'front-end/Front-End-Game'
 import BoxView from 'front-end/views/BoxView'
 
+@effect
 export default class Tree extends Entity {
     onGameContext(): void {
         const { scene } = this.context(Game)

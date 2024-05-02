@@ -13,7 +13,7 @@ const root = createRoot(document.querySelector('#root')!)
 import Player from './entities/Player'
 
 export default class Game extends Root {
-    static context = Symbol('GameContext')
+    static context = 'GameContext'
 
     systems: Systems
     scene: Scene
