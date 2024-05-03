@@ -17,25 +17,19 @@
         "baseUrl": ".",
         "paths": {
             "*": [
-                "game/node_modules/*",
                 "../Modules/*",
                 "../Modules/node_modules/*"
             ],
             "front-end/*": [
                 "front-end/*"
-            ],
-            "game/*": [
-                "game/*"
             ]
         }
     },
     "include": [
-        "front-end",
-        "game"
+        "front-end"
     ],
     "exclude": [
         "node_modules",
-        "game/node_modules",
         "../Modules/node_modules"
     ]
 }
