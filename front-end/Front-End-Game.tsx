@@ -76,7 +76,7 @@ export default class Game extends Root {
 
         renderer.setSize(window.innerWidth, window.innerWidth, false)
 
-        new EventListener(
+        new WindowEventListener(
             'resize',
             () => {
                 renderer.setSize(window.innerWidth, window.innerHeight, false)
@@ -89,15 +89,18 @@ export default class Game extends Root {
         new AnimationFrames(() => {
             systems.run()
             renderer.render(scene, camera)
+            this.emit('beforeAnimationFrame')
             this.emit('onAnimationFrame')
+            this.emit('afterAnimationFrame')
         }, [this])
 
         this.player = new Player(this)
         new Tree(this)
 
         this.UI = this.UI.bind(this)
-
         root.render(<this.UI />)
+
+        this.loadMap('stage1_1')
     }
 
     UI = function UI(): ReactNode {
@@ -116,5 +119,11 @@ export default class Game extends Root {
                 {position.x.toFixed(2)}, {position.y.toFixed(2)}
             </div>
         )
+    }
+
+    async loadMap(name: string): Promise<void> {
+        const map = await fetch.json(`/maps/${name}.json`)
+        // eslint-disable-next-line no-console
+        console.log(map)
     }
 }

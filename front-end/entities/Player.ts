@@ -42,13 +42,39 @@ export default class Player extends Entity {
             onUpdate: onControllersUpdate,
         }))
 
-        this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
-            camera,
-            target: this.Position3Able.position,
-            onUpdate: onControllersUpdate,
-        })
+        new WindowEventListener(
+            'mousedown',
+            () => {
+                if (this.thirdPersonCameraController) {
+                    return
+                }
 
-        new EventListener('mousedown', () => document.body.requestPointerLock(), [this, Game])
+                this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
+                    camera,
+                    target: this.Position3Able.position,
+                    onUpdate: onControllersUpdate,
+                })
+
+                new PointerLock([this, Game])
+                new DocumentEventListener(
+                    'pointerlockchange',
+                    () => {
+                        new DocumentEventListener(
+                            'pointerlockchange',
+                            () => {
+                                this.thirdPersonCameraController.destroy()
+                                delete this.thirdPersonCameraController
+                            },
+                            [this, Game, this.thirdPersonCameraController],
+                            { once: true }
+                        )
+                    },
+                    [this, Game, this.thirdPersonCameraController],
+                    { once: true }
+                )
+            },
+            [this, Game]
+        )
 
         const { scene } = this.context(Game)
 
@@ -67,6 +93,10 @@ export default class Player extends Entity {
     }
 
     getCameraDirection2D = (): number => {
+        if (!this.thirdPersonCameraController) {
+            return Math.PI / 2
+        }
+
         return Math.PI / 2 - this.thirdPersonCameraController.angles[0]
     }
 
