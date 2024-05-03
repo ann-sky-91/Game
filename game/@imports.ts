@@ -1,7 +1,0 @@
-import '@defs'
-import 'standard'
-import 'helpers/global'
-import 'features/global'
-import 'features/ecs/global'
-import 'controllers/global'
-import 'events/animation-frame'
