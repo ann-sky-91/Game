@@ -6,10 +6,11 @@
             "platforms": [
                 "native"
             ],
-            "public": "public"
+            "public": "front-end/public",
+            "tauri-assets": "front-end/tauri-assets"
         }
     ],
     "tests": [],
-    "scripts": [],
-    "modules": []
+    "modules": [],
+    "scripts": {}
 }

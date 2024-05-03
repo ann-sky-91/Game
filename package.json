@@ -2,9 +2,13 @@
     "name": "game",
     "type": "module",
     "scripts": {
-        "front-end: dev": "sky browser dev front-end",
-        "front-end: build": "sky browser build front-end",
-        "front-end: start": "sky browser start front-end",
+        "front-end:browser:dev": "sky browser dev front-end",
+        "front-end:browser:build": "sky browser build front-end",
+        "front-end:browser:start": "sky browser start front-end",
+        "front-end:tauri:init": "sky tauri init front-end",
+        "front-end:tauri:dev": "sky tauri dev front-end",
+        "front-end:tauri:build": "sky tauri build front-end",
+        "front-end:tauri:start": "sky tauri start front-end",
         "format": "sky format"
     },
     "devDependencies": {
