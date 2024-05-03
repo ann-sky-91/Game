@@ -17,21 +17,22 @@ export default class Player extends Entity {
     wasdController: WasdController
     thirdPersonCameraController: ThirdPersonCameraController
 
-    onGameContext(): void {
+    constructor(deps: EffectDeps) {
+        super(deps)
+
         new Position3Able(this)
         new Move3Able(this)
         new Acceleration3Able(this)
         new LinearFriction3Able(this, percentsPerSecond(20))
+    }
 
+    onGameContext(): void {
         const { camera } = this.context(Game)
 
         const onControllersUpdate = (): void => {
             const acceleration = wasdController.acceleration
                 .clone()
-                .rotateAround(
-                    new Vector2(0, 0),
-                    Math.PI / 2 - thirdPersonCameraController.angles[0]
-                )
+                .rotateAround(new Vector2(0, 0), this.getCameraDirection2D())
             this.Acceleration3Able.acceleration.x = acceleration.x
             this.Acceleration3Able.acceleration.y = acceleration.y
         }
@@ -41,12 +42,11 @@ export default class Player extends Entity {
             onUpdate: onControllersUpdate,
         }))
 
-        const thirdPersonCameraController = (this.thirdPersonCameraController =
-            new ThirdPersonCameraController([this, Game], {
-                camera,
-                target: this.Position3Able.position,
-                onUpdate: onControllersUpdate,
-            }))
+        this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
+            camera,
+            target: this.Position3Able.position,
+            onUpdate: onControllersUpdate,
+        })
 
         new EventListener('mousedown', () => document.body.requestPointerLock(), [this, Game])
 
