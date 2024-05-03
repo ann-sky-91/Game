@@ -1,8 +1,10 @@
 import '@defs'
 import 'standard'
 import 'helpers/global'
-import 'hooks/global'
+
+import 'features/effect/global'
 import 'features/ecs/global'
+
 import 'controllers/WasdController/global'
 import 'controllers/ThirdPersonCameraController/global'
 

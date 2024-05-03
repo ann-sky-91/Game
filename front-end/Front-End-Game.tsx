@@ -40,11 +40,23 @@ export default class Game extends Root {
         const scene = (this.scene = new Scene())
         scene.add(new GridHelper(100, 500, 0x883300, 0x333333).rotateX(Math.PI / 2))
 
-        const light = new DirectionalLight(0xffffff, 1)
-        light.position.set(0, 10, 0)
-        light.target.position.set(-5, 0, 0)
-        scene.add(light)
-        scene.add(light.target)
+        const light1 = new DirectionalLight(0xffffff, 1)
+        light1.position.set(0, 10, 2)
+        light1.target.position.set(0, 0, 0)
+        scene.add(light1)
+        scene.add(light1.target)
+
+        const light2 = new DirectionalLight(0xffffff, 1)
+        light2.position.set(-10, -10, 2)
+        light2.target.position.set(0, 0, 0)
+        scene.add(light2)
+        scene.add(light2.target)
+
+        const light3 = new DirectionalLight(0xffffff, 1)
+        light3.position.set(10, -10, 2)
+        light3.target.position.set(0, 0, 0)
+        scene.add(light3)
+        scene.add(light3.target)
 
         const camera = (this.camera = new PerspectiveCamera(
             50,
