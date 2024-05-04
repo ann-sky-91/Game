@@ -38,7 +38,7 @@ export default class Player extends Entity {
         }
 
         const wasdController = (this.wasdController = new WasdController([this, Game], {
-            force: 100,
+            force: 50,
             onUpdate: onControllersUpdate,
         }))
 
@@ -52,7 +52,8 @@ export default class Player extends Entity {
                 this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
                     camera,
                     target: this.Position3Able.position,
-                    distance: 20,
+                    distance: 6,
+                    z: 1,
                     onUpdate: onControllersUpdate,
                 })
 

@@ -12,7 +12,7 @@ export default class Cell extends Effect {
     constructor(type: string, x: number, y: number, z: number, deps: EffectDeps) {
         super(deps)
 
-        const hAspect = 0.25
+        const hAspect = 0.5
 
         this.plane = new Mesh(
             new BoxGeometry(
