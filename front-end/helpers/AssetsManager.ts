@@ -2,8 +2,9 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { Texture } from 'three/src/textures/Texture'
 
 export default class AssetsManager {
-    textureLoader: TextureLoader
+    readonly textureLoader: TextureLoader
     progress: number = 1
+    readonly textures: Record<string, Texture> = {}
 
     constructor() {
         this.textureLoader = new TextureLoader()
@@ -49,6 +50,7 @@ export default class AssetsManager {
             .then(texture => {
                 this.__loaders[`texture ${name}`] = 1
                 this.__updateProgress()
+                this.textures[name] = texture
                 return texture
             })
     }

@@ -1,3 +1,5 @@
+import Cell from './Cell'
+
 export interface LevelSave {
     width: number
     height: number
@@ -21,7 +23,7 @@ export interface LevelDictionary {
 
 @entity
 export default class Level extends Entity {
-    static CELL_SIZE = 1
+    static CELL_SIZE = 2
 
     readonly w: number
     readonly h: number
@@ -44,6 +46,7 @@ export default class Level extends Entity {
                     const i = y * level.width + x
                     const index = ground.data[i]
                     const slug = dictionary[index]
+
                     if (!slug) {
                         continue
                     }
@@ -51,10 +54,12 @@ export default class Level extends Entity {
                     const hIndex = heights.data[i]
                     const hSlug = dictionary[hIndex]
 
-                    const h = hSlug ? hSlug.slice(-1) : 0
+                    const h = hSlug ? Number(hSlug.slice(-1)) : 0
 
                     grid[x] = grid[x] || []
                     grid[x][y] = [slug, h]
+
+                    new Cell(slug, level.width - x, y, h, this)
                 }
             }
         }

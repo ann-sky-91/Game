@@ -1,19 +1,12 @@
 import 'front-end/@imports'
 const cx = classnames('Game', await import('../Front-End-Game.module.scss'))
 import Player from 'front-end/entities/Player'
-import Tree from 'front-end/entities/Tree'
 import { createRoot } from 'react-dom/client'
 import Acceleration3System from 'systems/Acceleration3System'
 import Friction3System from 'systems/Friction3System'
 import LinearFriction3System from 'systems/LinearFriction3System'
 import Movement3System from 'systems/Movement3System'
-import {
-    DirectionalLight,
-    Scene,
-    PerspectiveCamera,
-    WebGLRenderer,
-    GridHelper,
-} from 'three/src/Three'
+import { DirectionalLight, Scene, PerspectiveCamera, WebGLRenderer } from 'three/src/Three'
 
 import Game from '../Front-End-Game'
 
@@ -32,7 +25,6 @@ export default async function GameConstructor(this: Game): Promise<void> {
     ]))
 
     const scene = (this.scene = new Scene())
-    scene.add(new GridHelper(100, 500, 0x883300, 0x333333).rotateX(Math.PI / 2))
 
     const light1 = new DirectionalLight(0xffffff, 1)
     light1.position.set(0, 10, 2)
@@ -89,7 +81,6 @@ export default async function GameConstructor(this: Game): Promise<void> {
     }, [this])
 
     this.player = new Player(this)
-    new Tree(this)
 
     this.loadLevel('stage1_1')
 }
