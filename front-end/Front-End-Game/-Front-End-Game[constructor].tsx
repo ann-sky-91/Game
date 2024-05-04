@@ -17,7 +17,13 @@ import {
 
 import Game from '../Front-End-Game'
 
-export default function GameConstructor(this: Game): void {
+export default async function GameConstructor(this: Game): Promise<void> {
+    this.UI = this.UI.bind(this)
+    const root = createRoot(document.querySelector('#root')!)
+    root.render(<this.UI />)
+
+    await assetsManager.loadLevelTextures()
+
     const systems = (this.systems = new Systems(this, [
         new Movement3System(),
         new Friction3System(),
@@ -84,10 +90,6 @@ export default function GameConstructor(this: Game): void {
 
     this.player = new Player(this)
     new Tree(this)
-
-    this.UI = this.UI.bind(this)
-    const root = createRoot(document.querySelector('#root')!)
-    root.render(<this.UI />)
 
     this.loadLevel('stage1_1')
 }

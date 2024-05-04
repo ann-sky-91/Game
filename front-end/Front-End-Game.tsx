@@ -17,12 +17,13 @@ export default class Game extends Root {
 
     constructor() {
         super()
+
+        this.UI = this.UI.bind(this)
+
         GameConstructor.call(this)
     }
 
     UI = function UI(): ReactNode {
-        const { position } = this.player.Position3Able
-
         const [, update] = useState(() => {
             new AnimationFrames(() => {
                 update(value => !value)
@@ -30,6 +31,14 @@ export default class Game extends Root {
 
             return false
         })
+
+        if (assetsManager.progress < 1) {
+            return (
+                <div className="panel">Loading... {(assetsManager.progress * 100).toFixed(0)}%</div>
+            )
+        }
+
+        const { position } = this.player.Position3Able
 
         return (
             <div className="panel">
