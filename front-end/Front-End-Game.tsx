@@ -1,9 +1,8 @@
 import 'front-end/@imports'
 import { Scene, PerspectiveCamera, WebGLRenderer } from 'three/src/Three'
 
-import Level from './entities/Level'
+import Level, { LevelSave } from './entities/Level'
 import Player from './entities/Player'
-import loadLevel from './Front-End-Game/-Front-End-Game+loadLevel'
 import GameConstructor from './Front-End-Game/-Front-End-Game[constructor]'
 
 export default class Game extends Root {
@@ -39,7 +38,8 @@ export default class Game extends Root {
         )
     }
 
-    loadLevel!: (name: string) => Promise<void>
+    async loadLevel(this: Game, name: string): Promise<void> {
+        const level = await fetch.json<LevelSave>(`/levels/${name}.json`)
+        this.level = new Level(this, level)
+    }
 }
-
-Game.prototype.loadLevel = loadLevel
