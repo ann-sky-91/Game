@@ -4,10 +4,13 @@ import { Texture } from 'three/src/textures/Texture'
 export default class AssetsManager {
     readonly textureLoader: TextureLoader
     progress: number = 1
-    readonly textures: Record<string, Texture> = {}
 
     constructor() {
         this.textureLoader = new TextureLoader()
+    }
+
+    getTexture(name: string): Texture {
+        return this.__textures[name]
     }
 
     async loadLevelTextures(): Promise<void> {
@@ -50,7 +53,7 @@ export default class AssetsManager {
             .then(texture => {
                 this.__loaders[`texture ${name}`] = 1
                 this.__updateProgress()
-                this.textures[name] = texture
+                this.__textures[name] = texture
                 return texture
             })
     }
@@ -66,5 +69,6 @@ export default class AssetsManager {
         }
     }
 
+    private __textures: Record<string, Texture> = {}
     private __loaders: Record<string, number> = {}
 }

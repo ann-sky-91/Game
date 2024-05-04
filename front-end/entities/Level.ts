@@ -23,43 +23,39 @@ export interface LevelDictionary {
 
 @entity
 export default class Level extends Entity {
-    static CELL_SIZE = 2
-
     readonly w: number
     readonly h: number
 
     constructor(deps: EffectDeps, level: LevelSave) {
         super(deps)
 
-        this.w = level.width * Level.CELL_SIZE
-        this.h = level.height * Level.CELL_SIZE
+        this.w = level.width
+        this.h = level.height
 
         const dictionary = getLevelDictionary(level)
 
         for (let i = 0; i < 6; ++i) {
+            const layerIndex = i
             const heights = level.layers[i * 3 + 1]
             const ground = level.layers[i * 3]
-            const grid = []
 
             for (let y = 0; y < level.height; ++y) {
                 for (let x = 0; x < level.width; ++x) {
-                    const i = y * level.width + x
-                    const index = ground.data[i]
+                    const dataIndex = y * level.width + x
+                    const index = ground.data[dataIndex]
                     const slug = dictionary[index]
 
                     if (!slug) {
                         continue
                     }
 
-                    const hIndex = heights.data[i]
+                    const hIndex = heights.data[dataIndex]
                     const hSlug = dictionary[hIndex]
 
+                    const z = layerIndex - 2
                     const h = hSlug ? Number(hSlug.slice(-1)) : 0
 
-                    grid[x] = grid[x] || []
-                    grid[x][y] = [slug, h]
-
-                    new Cell(slug, level.width - x, y, h, this)
+                    new Cell(slug, level.width - x, y, z, h, this)
                 }
             }
         }
