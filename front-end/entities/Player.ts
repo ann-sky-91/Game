@@ -23,7 +23,7 @@ export default class Player extends Entity {
         new Position3Able(this, 100, 100)
         new Move3Able(this)
         new Acceleration3Able(this)
-        new LinearFriction3Able(this, percentsPerSecond(10))
+        new LinearFriction3Able(this, percentsPerSecond(99.8))
     }
 
     onGameContext(): void {
@@ -38,7 +38,7 @@ export default class Player extends Entity {
         }
 
         const wasdController = (this.wasdController = new WasdController([this, Game], {
-            force: 4,
+            force: 7,
             onUpdate: onControllersUpdate,
         }))
 
@@ -52,8 +52,8 @@ export default class Player extends Entity {
                 this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
                     camera,
                     target: this.Position3Able.position,
-                    distance: 1,
-                    z: 0.7,
+                    distance: 2,
+                    z: 1,
                     onUpdate: onControllersUpdate,
                 })
 
@@ -80,7 +80,7 @@ export default class Player extends Entity {
 
         const { scene } = this.context(Game)
 
-        const view = (this.view = BoxView(0.1))
+        const view = (this.view = BoxView(0.2))
         new InScene(view, scene, [this, Game])
     }
 

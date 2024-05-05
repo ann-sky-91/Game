@@ -1,6 +1,6 @@
 import Game from 'front-end/Front-End-Game'
-import Vector2 from 'math/Vector2'
 import { BoxGeometry } from 'three/src/geometries/BoxGeometry'
+import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry'
 import { MeshPhysicalMaterial } from 'three/src/materials/MeshPhysicalMaterial'
 import { Mesh } from 'three/src/objects/Mesh'
 
@@ -11,15 +11,32 @@ export default class Cell extends Effect {
     constructor(type: string, x: number, y: number, z: number, h: number, deps: EffectDeps) {
         super(deps)
 
-        const hAspect = 1 / 4
-        const planeH = Math.max(h * hAspect, 0.1)
+        const hAspect = 1 / 3
+        const planeH = h * hAspect
 
-        this.mesh = new Mesh(
-            new BoxGeometry(1, 1, planeH, 1, 1, 1),
-            new MeshPhysicalMaterial({
-                map: assetsManager.getTexture(`level/${type}`),
-            })
-        )
+        if (planeH === 0) {
+            this.mesh = new Mesh(
+                new PlaneGeometry(1, 1, 1, 1),
+                new MeshPhysicalMaterial({
+                    metalness: 0.5,
+                    roughness: 0.5,
+                    precision: 'lowp',
+                    map: assetsManager.getTexture(`level/${type}`),
+                })
+            )
+        } else {
+            this.mesh = new Mesh(
+                new BoxGeometry(1, 1, planeH, 1, 1, 1),
+                new MeshPhysicalMaterial({
+                    metalness: 0.5,
+                    roughness: 0.5,
+                    precision: 'lowp',
+                    map: assetsManager.getTexture(`level/${type}`),
+                })
+            )
+        }
+        this.mesh.castShadow = true
+        this.mesh.receiveShadow = true
 
         const uvAttribute = this.mesh.geometry.attributes.uv
         for (let i = 0; i < uvAttribute.count; i++) {
