@@ -88,10 +88,17 @@ export default class Player extends Entity {
         const { view } = this
         const { position } = this.Position3Able
         const { x, y } = position
+
         view.position.x = x
         view.position.y = y
         view.position.z = 1 / 2
         view.rotation.z = this.getCameraDirection2D()
+    }
+
+    afterAnimationFrame(): void {
+        const { camera } = this.context(Game)
+
+        camera.position.z = 0.5
     }
 
     getCameraDirection2D = (): number => {
