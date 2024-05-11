@@ -23,7 +23,7 @@ export default class Player extends Entity {
         new Position3Able(this, 100, 100)
         new Move3Able(this)
         new Acceleration3Able(this)
-        new LinearFriction3Able(this, percentsPerSecond(99.8))
+        new LinearFriction3Able(this, PercentsPerSecond(99.8))
     }
 
     onGameContext(): void {
