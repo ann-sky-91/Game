@@ -5,6 +5,7 @@ import Position3Able from 'ables/Position3Able'
 import Game from 'front-end/Front-End-Game'
 import BoxView from 'front-end/views/BoxView'
 import Vector2 from 'math/Vector2'
+import Vector3 from 'math/Vector3'
 
 @entity
 export default class Player extends Entity {
@@ -44,9 +45,10 @@ export default class Player extends Entity {
 
         this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
             camera,
-            target: this.Position3Able.position,
-            distance: 2,
+            getTarget: (): Vector3 => this.Position3Able.position,
+            distance: 3,
             z: 1,
+            minAngle: 0,
             onUpdate: onControllersUpdate,
         })
 
@@ -65,12 +67,6 @@ export default class Player extends Entity {
         view.position.y = y
         view.position.z = 1 / 2
         view.rotation.z = this.getCameraDirection2D()
-    }
-
-    afterAnimationFrame(): void {
-        const { camera } = this.context(Game)
-
-        camera.position.z = 0.5
     }
 
     getCameraDirection2D = (): number => {
