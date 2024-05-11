@@ -47,8 +47,9 @@ export default class Player extends Entity {
             camera,
             getTarget: (): Vector3 => this.Position3Able.position,
             distance: 3,
-            z: 1,
-            minAngle: 0,
+            z: 2,
+            minAngle: Math.PI / 8,
+            maxAngle: (Math.PI * 3) / 8,
             onUpdate: onControllersUpdate,
         })
 
