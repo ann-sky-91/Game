@@ -29,7 +29,6 @@ export default async function GameConstructor(this: Game): Promise<void> {
 
     const ambientLight = new AmbientLight(0xffffff, 0.1)
     scene.add(ambientLight)
-    ambientLight.castShadow = true
 
     const light1 = new DirectionalLight(0xffffff, 0.9)
     light1.castShadow = true
@@ -39,14 +38,14 @@ export default async function GameConstructor(this: Game): Promise<void> {
     scene.add(light1.target)
 
     const light2 = new DirectionalLight(0xffffff, 0.5)
-    light1.castShadow = true
+    light2.castShadow = true
     light2.position.set(-10, -10, -10)
     light2.target.position.set(0, 0, 0)
     scene.add(light2)
     scene.add(light2.target)
 
     const light3 = new DirectionalLight(0xffffff, 0.3)
-    light1.castShadow = true
+    light3.castShadow = true
     light3.position.set(10, -10, 0)
     light3.target.position.set(0, 0, 0)
     scene.add(light3)

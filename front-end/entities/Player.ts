@@ -42,41 +42,13 @@ export default class Player extends Entity {
             onUpdate: onControllersUpdate,
         }))
 
-        new WindowEventListener(
-            'mousedown',
-            () => {
-                if (this.thirdPersonCameraController) {
-                    return
-                }
-
-                this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
-                    camera,
-                    target: this.Position3Able.position,
-                    distance: 2,
-                    z: 1,
-                    onUpdate: onControllersUpdate,
-                })
-
-                new PointerLock([this, Game])
-                new DocumentEventListener(
-                    'pointerlockchange',
-                    () => {
-                        new DocumentEventListener(
-                            'pointerlockchange',
-                            () => {
-                                this.thirdPersonCameraController.destroy()
-                                delete this.thirdPersonCameraController
-                            },
-                            [this, Game, this.thirdPersonCameraController],
-                            { once: true }
-                        )
-                    },
-                    [this, Game, this.thirdPersonCameraController],
-                    { once: true }
-                )
-            },
-            [this, Game]
-        )
+        this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
+            camera,
+            target: this.Position3Able.position,
+            distance: 2,
+            z: 1,
+            onUpdate: onControllersUpdate,
+        })
 
         const { scene } = this.context(Game)
 
