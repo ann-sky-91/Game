@@ -77,11 +77,4 @@ export default class Player extends Entity {
 
         return Math.PI / 2 - this.thirdPersonCameraController.angles[0]
     }
-
-    to0x0(): void {
-        const { position } = this.Position3Able
-        position.x = 0
-        position.y = 0
-        position.z = 0
-    }
 }

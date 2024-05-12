@@ -1,3 +1,5 @@
+import { Object3D } from 'three/src/core/Object3D'
+
 import Cell from './Cell'
 
 export interface LevelSave {
@@ -7,9 +9,11 @@ export interface LevelSave {
     layers: {
         data: number[]
     }[]
+
     tilesets: {
         [x: string]: {
             firstgid: number
+
             tiles: {
                 image: string
             }[]
@@ -25,6 +29,8 @@ export interface LevelDictionary {
 export default class Level extends Entity {
     readonly w: number
     readonly h: number
+
+    readonly levels: Object3D[] = []
 
     constructor(deps: EffectDeps, level: LevelSave) {
         super(deps)
@@ -53,9 +59,9 @@ export default class Level extends Entity {
                     const hSlug = dictionary[hIndex]
 
                     const z = layerIndex - 2
-                    const h = hSlug ? Number(hSlug.slice(-1)) : 0
+                    const h = hSlug ? Number(hSlug.slice(-1)) / 6 : 0
 
-                    new Cell(slug, level.width - x, y, z, h, this)
+                    new Cell(slug, level.width - x, y, z * 2.0001, h * 2, this)
                 }
             }
         }
