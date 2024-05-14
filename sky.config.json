@@ -2,9 +2,9 @@
     "apps": [
         {
             "name": "front-end",
-            "entry": "front-end/index.tsx",
             "platforms": [
-                "native"
+                "native",
+                "browser"
             ],
             "public": "front-end/public"
         }
