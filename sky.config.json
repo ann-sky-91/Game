@@ -6,8 +6,7 @@
             "platforms": [
                 "native"
             ],
-            "public": "front-end/public",
-            "tauri-assets": "front-end/tauri-assets"
+            "public": "front-end/public"
         }
     ],
     "tests": [],
