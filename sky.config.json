@@ -2,6 +2,7 @@
     "apps": [
         {
             "name": "front-end",
+            "path": "front-end",
             "target": "universal",
             "public": "front-end/public"
         }

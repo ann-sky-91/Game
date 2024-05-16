@@ -13,7 +13,7 @@ module.exports = {
     testEnvironment: 'node',
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
     modulePaths: ['<rootDir>'],
-    coverageDirectory: '../coverage',
+    coverageDirectory: './coverage',
     moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
     testRegex: '.*\\.test\\.ts$',
     transform: { '^.+\\.(t|j)s$': 'ts-jest' },
