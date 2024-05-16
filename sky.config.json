@@ -2,15 +2,11 @@
     "apps": [
         {
             "name": "front-end",
-            "platforms": [
-                "native",
-                "browser"
-            ],
+            "target": "universal",
             "public": "front-end/public"
         }
     ],
-    "tests": [],
     "modules": [],
-    "scripts": {},
-    "libs": []
+    "libs": [],
+    "scripts": {}
 }
