@@ -2,18 +2,18 @@
     "name": "game",
     "type": "module",
     "scripts": {
-        "front-end:browser:dev": "sky browser dev front-end",
-        "front-end:browser:build": "sky browser build front-end",
-        "front-end:browser:start": "sky browser start front-end",
         "front-end:tauri:init": "sky tauri init front-end",
         "front-end:tauri:dev": "sky tauri dev front-end",
         "front-end:tauri:build": "sky tauri build front-end",
         "front-end:tauri:start": "sky tauri start front-end",
+        "front-end:browser:dev": "sky browser dev front-end",
+        "front-end:browser:build": "sky browser build front-end",
+        "front-end:browser:start": "sky browser start front-end",
         "format": "sky format"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^7.8.0",
-        "@typescript-eslint/parser": "^7.8.0",
+        "@typescript-eslint/eslint-plugin": "^7.9.0",
+        "@typescript-eslint/parser": "^7.9.0",
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-import": "^2.29.1",

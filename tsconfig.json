@@ -21,13 +21,13 @@
                 "../Modules/node_modules/*"
             ],
             "front-end/*": [
-                "front-end/*"
+                "undefined/*"
             ]
         }
     },
     "include": [
         "../Modules",
-        "front-end"
+        null
     ],
     "exclude": [
         "node_modules",
