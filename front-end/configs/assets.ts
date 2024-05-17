@@ -1,4 +1,7 @@
 export const textures = [
+    'bricks',
+    'bricks2',
+    'stone',
     'dirt',
     'dirt2',
     'door',

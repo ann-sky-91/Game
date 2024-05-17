@@ -4,7 +4,8 @@
             "name": "front-end",
             "path": "front-end",
             "target": "universal",
-            "public": "front-end/public"
+            "public": "front-end/public",
+            "html": "front-end/public/index.html"
         }
     ],
     "modules": [],
