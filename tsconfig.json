@@ -11,6 +11,7 @@
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "experimentalDecorators": true,
+        "resolvePackageJsonImports": false,
         "typeRoots": [
             "../Modules/node_modules/@types"
         ],
@@ -20,6 +21,9 @@
                 "../Modules/*",
                 "../Modules/node_modules/*"
             ],
+            "~lib/*": [
+                "../Modules/node_modules/*"
+            ],
             "front-end/*": [
                 "front-end/*"
             ]
@@ -27,7 +31,8 @@
     },
     "include": [
         "../Modules",
-        "front-end"
+        "front-end",
+        ".sky/"
     ],
     "exclude": [
         "node_modules",
