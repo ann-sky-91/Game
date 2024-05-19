@@ -48,7 +48,6 @@ export default class Game extends Root {
     }
 
     async loadLevel(this: Game, name: string): Promise<void> {
-        const level = await fetch.json<LevelSave>(`/levels/${name}.json`)
-        this.level = new Level(this, level)
+        this.level = new Level(this, await fetch.json<LevelSave>(`/levels/${name}.json`))
     }
 }
