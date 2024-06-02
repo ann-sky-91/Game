@@ -1,4 +1,4 @@
-import 'front-end/@imports'
+import 'front-end/imports'
 import 'styles/Page.scss'
 import Game from './Front-End-Game'
 import AssetsManager from './helpers/AssetsManager'

@@ -9,10 +9,6 @@ export default class AssetsManager {
         this.textureLoader = new TextureLoader()
     }
 
-    getTexture(name: string): Texture {
-        return this.__textures[name]
-    }
-
     async loadLevelTextures(): Promise<void> {
         await Promise.all([
             this.loadTexture('level/bricks'),
@@ -39,6 +35,10 @@ export default class AssetsManager {
             this.loadTexture('level/water'),
             this.loadTexture('level/whole'),
         ])
+    }
+
+    getTexture(name: string): Texture {
+        return this.__textures[name]
     }
 
     loadTexture(name: string): Promise<Texture> {

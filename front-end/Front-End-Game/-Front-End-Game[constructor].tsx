@@ -1,5 +1,4 @@
-import 'front-end/@imports'
-const cx = classnames('Game', await import('../Front-End-Game.module.scss'))
+const cx = await classnames('Game', import('../Front-End-Game.module.scss'))
 import Player from 'front-end/entities/Player'
 import { createRoot } from 'react-dom/client'
 import Acceleration3System from 'systems/Acceleration3System'

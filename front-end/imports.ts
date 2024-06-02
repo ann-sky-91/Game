@@ -1,4 +1,4 @@
-import '@defs'
+import '@browser/defs'
 import 'standard'
 import 'helpers/global'
 

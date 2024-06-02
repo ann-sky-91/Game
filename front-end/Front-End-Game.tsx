@@ -1,4 +1,4 @@
-import 'front-end/@imports'
+import 'front-end/imports'
 import { Scene, PerspectiveCamera, WebGLRenderer } from 'three/src/Three'
 
 import Level, { LevelSave } from './entities/Level'
