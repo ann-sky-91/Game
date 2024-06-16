@@ -40,7 +40,7 @@ export default class Level extends Entity {
 
         const dictionary = getLevelDictionary(level)
 
-        for (let i = 0; i < 6; ++i) {
+        for (let i = 2; i < 3; ++i) {
             const layerIndex = i
             const heights = level.layers[i * 3 + 1]
             const ground = level.layers[i * 3]

@@ -1,5 +1,5 @@
-import Game from 'front-end/Front-End-Game'
-import BoxView from 'front-end/views/BoxView'
+import Game from '@/Game'
+import BoxView from '@/views/BoxView'
 
 @entity
 export default class Wall extends Entity {

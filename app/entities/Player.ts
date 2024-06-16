@@ -1,11 +1,12 @@
-import Acceleration3Able from 'ables/Acceleration3Able'
-import LinearFriction3Able from 'ables/LinearFriction3Able'
-import Move3Able from 'ables/Move3Able'
-import Position3Able from 'ables/Position3Able'
-import Game from 'front-end/Front-End-Game'
-import BoxView from 'front-end/views/BoxView'
-import Vector2 from 'math/Vector2'
-import Vector3 from 'math/Vector3'
+import Acceleration3Able from 'sky/ables/Acceleration3Able'
+import LinearFriction3Able from 'sky/ables/LinearFriction3Able'
+import Move3Able from 'sky/ables/Move3Able'
+import Position3Able from 'sky/ables/Position3Able'
+import Vector2 from 'sky/math/Vector2'
+import Vector3 from 'sky/math/Vector3'
+
+import Game from '@/Game'
+import BoxView from '@/views/BoxView'
 
 @entity
 export default class Player extends Entity {
@@ -71,10 +72,6 @@ export default class Player extends Entity {
     }
 
     getCameraDirection2D = (): number => {
-        if (!this.thirdPersonCameraController) {
-            return Math.PI / 2
-        }
-
         return Math.PI / 2 - this.thirdPersonCameraController.angles[0]
     }
 }

@@ -1,6 +1,5 @@
 import 'app/imports'
-import { createRoot } from 'react-dom/client'
-import { Text } from 'react-native'
+import { Text, StyleProp, TextStyle } from 'react-native'
 import { Scene, PerspectiveCamera, WebGLRenderer } from 'three'
 
 import Level, { LevelSave } from './entities/Level'
@@ -20,11 +19,6 @@ export default class Game extends Root {
     constructor() {
         super()
 
-        this.UI = this.UI.bind(this)
-
-        const root = createRoot(document.getElementById('root'))
-        root.render(<this.UI />)
-
         GameConstructor.call(this)
     }
 
@@ -37,16 +31,25 @@ export default class Game extends Root {
             return false
         })
 
+        const style: StyleProp<TextStyle> = {
+            padding: 10,
+            height: 40,
+            display: 'flex',
+            alignItems: 'center',
+            color: 'white',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        }
+
         if (assetsManager.progress < 1) {
             return (
-                <div className="panel">Loading... {(assetsManager.progress * 100).toFixed(0)}%</div>
+                <Text style={style}>Loading... {(assetsManager.progress * 100).toFixed(0)}%</Text>
             )
         }
 
         const { position } = this.player.Position3Able
 
         return (
-            <Text>
+            <Text style={style}>
                 {position.x.toFixed(2)}, {position.y.toFixed(2)}
             </Text>
         )

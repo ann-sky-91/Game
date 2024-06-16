@@ -1,4 +1,4 @@
-import 'sky/@browser/defs'
+import 'sky/@web/defs'
 import 'sky/standard'
 import 'sky/helpers/global'
 

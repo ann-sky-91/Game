@@ -1,8 +1,9 @@
-import Game from 'front-end/Front-End-Game'
 import { BoxGeometry } from 'three/src/geometries/BoxGeometry'
 import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry'
 import { MeshPhysicalMaterial } from 'three/src/materials/MeshPhysicalMaterial'
 import { Mesh } from 'three/src/objects/Mesh'
+
+import Game from '@/Game'
 
 @effect
 export default class Cell extends Effect {
