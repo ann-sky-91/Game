@@ -1,9 +1,10 @@
-import 'front-end/imports'
+import 'app/imports'
+import { Text } from 'react-native'
 import { Scene, PerspectiveCamera, WebGLRenderer } from 'three'
 
+import GameConstructor from './App/-App[constructor]'
 import Level, { LevelSave } from './entities/Level'
 import Player from './entities/Player'
-import GameConstructor from './Front-End-Game/-Front-End-Game[constructor]'
 
 export default class Game extends Root {
     static context = 'GameContext'
@@ -17,8 +18,6 @@ export default class Game extends Root {
 
     constructor() {
         super()
-
-        this.UI = this.UI.bind(this)
 
         GameConstructor.call(this)
     }
@@ -41,9 +40,9 @@ export default class Game extends Root {
         const { position } = this.player.Position3Able
 
         return (
-            <div className="panel">
+            <Text>
                 {position.x.toFixed(2)}, {position.y.toFixed(2)}
-            </div>
+            </Text>
         )
     }
 

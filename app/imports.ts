@@ -1,12 +1,12 @@
-import '@browser/defs'
-import 'standard'
-import 'helpers/global'
+import 'sky/@browser/defs'
+import 'sky/standard'
+import 'sky/helpers/global'
 
-import 'features/effect/global'
-import 'features/ecs/global'
+import 'sky/features/effect/global'
+import 'sky/features/ecs/global'
 
-import 'controllers/WasdController/global'
-import 'controllers/ThirdPersonCameraController/global'
+import 'sky/controllers/WasdController/global'
+import 'sky/controllers/ThirdPersonCameraController/global'
 
-import 'libs/react/global'
-import 'libs/three/global'
+import 'sky/libs/react/global'
+import 'sky/libs/three/global'

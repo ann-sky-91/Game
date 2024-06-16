@@ -9,4 +9,8 @@ declare global {
 
 globalify({ assetsManager: new AssetsManager() })
 
-new Game()
+const game = new Game()
+
+export default function App(): ReactNode {
+    return <game.UI />
+}

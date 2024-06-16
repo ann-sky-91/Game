@@ -1,12 +1,17 @@
-const cx = await classnames('Game', import('../Front-End-Game.module.scss'))
-import Player from 'front-end/entities/Player'
+const cx = await classnames('Game', import('../App.module.scss'))
+
+import Player from 'app/entities/Player'
 import { createRoot } from 'react-dom/client'
-import Acceleration3System from 'systems/Acceleration3System'
-import Friction3System from 'systems/Friction3System'
-import LinearFriction3System from 'systems/LinearFriction3System'
-import Movement3System from 'systems/Movement3System'
+import Vector3 from 'sky/math/Vector3'
+import Acceleration3System from 'sky/systems/Acceleration3System'
+import Friction3System from 'sky/systems/Friction3System'
+import LinearFriction3System from 'sky/systems/LinearFriction3System'
+import Movement3System from 'sky/systems/Movement3System'
+import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera'
 import { AmbientLight } from 'three/src/lights/AmbientLight'
-import { DirectionalLight, Scene, PerspectiveCamera, WebGLRenderer } from 'three/src/Three'
+import { DirectionalLight } from 'three/src/lights/DirectionalLight'
+import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer'
+import { Scene } from 'three/src/scenes/Scene'
 
 import Game from '../App'
 
@@ -29,26 +34,32 @@ export default async function GameConstructor(this: Game): Promise<void> {
     const ambientLight = new AmbientLight(0xffffff, 0.1)
     scene.add(ambientLight)
 
-    const light1 = new DirectionalLight(0xffffff, 0.9)
-    light1.castShadow = true
-    light1.position.set(0, 10, 10)
-    light1.target.position.set(0, 0, 0)
-    scene.add(light1)
-    scene.add(light1.target)
+    interface CreateLightOptions {
+        alpha: number
+        position: Vector3
+    }
 
-    const light2 = new DirectionalLight(0xffffff, 0.5)
-    light2.castShadow = true
-    light2.position.set(-10, -10, -10)
-    light2.target.position.set(0, 0, 0)
-    scene.add(light2)
-    scene.add(light2.target)
+    function createLight(options: CreateLightOptions): void {
+        const light = new DirectionalLight(0xffffff, options.alpha)
+        light.castShadow = true
+        light.position.copy(options.position)
+        light.target.position.set(0, 0, 0)
+        scene.add(light)
+        scene.add(light.target)
+    }
 
-    const light3 = new DirectionalLight(0xffffff, 0.3)
-    light3.castShadow = true
-    light3.position.set(10, -10, 0)
-    light3.target.position.set(0, 0, 0)
-    scene.add(light3)
-    scene.add(light3.target)
+    createLight({
+        alpha: 0.9,
+        position: new Vector3(0, 10, 10),
+    })
+    createLight({
+        alpha: 0.5,
+        position: new Vector3(-10, -10, -10),
+    })
+    createLight({
+        alpha: 0.3,
+        position: new Vector3(10, -10, 0),
+    })
 
     const camera = (this.camera = new PerspectiveCamera(
         50,
