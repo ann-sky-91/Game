@@ -1,10 +1,11 @@
 import 'app/imports'
+import { createRoot } from 'react-dom/client'
 import { Text } from 'react-native'
 import { Scene, PerspectiveCamera, WebGLRenderer } from 'three'
 
-import GameConstructor from './App/-App[constructor]'
 import Level, { LevelSave } from './entities/Level'
 import Player from './entities/Player'
+import GameConstructor from './Game/-Game[constructor]'
 
 export default class Game extends Root {
     static context = 'GameContext'
@@ -18,6 +19,11 @@ export default class Game extends Root {
 
     constructor() {
         super()
+
+        this.UI = this.UI.bind(this)
+
+        const root = createRoot(document.getElementById('root'))
+        root.render(<this.UI />)
 
         GameConstructor.call(this)
     }

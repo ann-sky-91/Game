@@ -13,7 +13,7 @@ import { DirectionalLight } from 'three/src/lights/DirectionalLight'
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer'
 import { Scene } from 'three/src/scenes/Scene'
 
-import Game from '../App'
+import Game from '../Game'
 
 export default async function GameConstructor(this: Game): Promise<void> {
     this.UI = this.UI.bind(this)
