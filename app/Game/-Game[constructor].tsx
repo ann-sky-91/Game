@@ -1,6 +1,5 @@
-const cx = await classnames('Game', import('../App.module.scss'))
+const cx = await classnames('Game', import('../Game.module.scss'))
 
-import Player from 'app/entities/Player'
 import { createRoot } from 'react-dom/client'
 import Vector3 from 'sky/math/Vector3'
 import Acceleration3System from 'sky/systems/Acceleration3System'
@@ -13,7 +12,8 @@ import { DirectionalLight } from 'three/src/lights/DirectionalLight'
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer'
 import { Scene } from 'three/src/scenes/Scene'
 
-import Game from '../Game'
+import Player from '@/entities/Player'
+import Game from '@/Game'
 
 export default async function GameConstructor(this: Game): Promise<void> {
     this.UI = this.UI.bind(this)

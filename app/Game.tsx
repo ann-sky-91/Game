@@ -1,4 +1,4 @@
-import 'app/imports'
+import '@/imports'
 import { Text, StyleProp, TextStyle } from 'react-native'
 import { Scene, PerspectiveCamera, WebGLRenderer } from 'three'
 
