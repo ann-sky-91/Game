@@ -2,7 +2,7 @@
     "title": "Void Light",
     "apps": [
         {
-            "name": "app",
+            "name": "game",
             "path": "app",
             "target": "universal",
             "public": "app/public",
