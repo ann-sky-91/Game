@@ -2,26 +2,26 @@
     "name": "game",
     "type": "module",
     "scripts": {
-        "front-end:tauri:init": "sky tauri init front-end",
-        "front-end:tauri:dev": "sky tauri dev front-end",
-        "front-end:tauri:build": "sky tauri build front-end",
-        "front-end:tauri:start": "sky tauri start front-end",
-        "front-end:browser:dev": "sky browser dev front-end",
-        "front-end:browser:build": "sky browser build front-end",
-        "front-end:browser:start": "sky browser start front-end",
+        "app:tauri:init": "sky tauri init app",
+        "app:tauri:dev": "sky tauri dev app",
+        "app:tauri:build": "sky tauri build app",
+        "app:tauri:start": "sky tauri start app",
+        "app:web:dev": "sky web dev app",
+        "app:web:build": "sky web build app",
+        "app:web:start": "sky web start app",
         "format": "sky format"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^7.9.0",
-        "@typescript-eslint/parser": "^7.9.0",
+        "@typescript-eslint/eslint-plugin": "^7.13.0",
+        "@typescript-eslint/parser": "^7.13.0",
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-prettier": "^5.1.3",
-        "eslint-plugin-react": "^7.34.1",
+        "eslint-plugin-react": "^7.34.2",
         "eslint-plugin-react-hooks": "^4.6.2",
-        "prettier": "^3.2.5",
-        "tsx": "^4.9.0"
+        "prettier": "^3.3.2",
+        "tsx": "^4.15.5"
     },
     "browserslist": {
         "production": [

@@ -11,27 +11,28 @@
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "experimentalDecorators": true,
-        "resolvePackageJsonImports": false,
         "typeRoots": [
             "../Modules/node_modules/@types"
         ],
         "baseUrl": ".",
         "paths": {
             "*": [
-                "../Modules/*",
                 "../Modules/node_modules/*"
             ],
-            "~lib/*": [
-                "../Modules/node_modules/*"
+            "@/*": [
+                "app/*"
             ],
-            "front-end/*": [
-                "front-end/*"
+            "sky/*": [
+                "../Modules/*"
+            ],
+            "app/*": [
+                "app/*"
             ]
         }
     },
     "include": [
         "../Modules",
-        "front-end",
+        "app",
         ".sky/"
     ],
     "exclude": [

@@ -1,6 +1,6 @@
-import 'front-end/imports'
-import 'styles/Page.scss'
-import Game from './Front-End-Game'
+import 'app/imports'
+import 'sky/styles/Page.scss'
+import Game from './App'
 import AssetsManager from './helpers/AssetsManager'
 
 declare global {

@@ -13,8 +13,8 @@
 			"path": "."
 		},
         {
-            "name": "Game @ Front-End",
-            "path": "./front-end/"
+            "name": "Game @ App",
+            "path": "./app/"
         }
 	],
     "settings": {}

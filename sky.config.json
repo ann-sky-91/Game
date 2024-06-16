@@ -1,11 +1,12 @@
 {
+    "title": "Void Light",
     "apps": [
         {
-            "name": "front-end",
-            "path": "front-end",
+            "name": "app",
+            "path": "app",
             "target": "universal",
-            "public": "front-end/public",
-            "tauri-assets": "front-end"
+            "public": "app/public",
+            "tauri-assets": "app"
         }
     ],
     "modules": [],

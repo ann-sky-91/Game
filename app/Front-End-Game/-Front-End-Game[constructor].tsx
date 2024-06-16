@@ -8,7 +8,7 @@ import Movement3System from 'systems/Movement3System'
 import { AmbientLight } from 'three/src/lights/AmbientLight'
 import { DirectionalLight, Scene, PerspectiveCamera, WebGLRenderer } from 'three/src/Three'
 
-import Game from '../Front-End-Game'
+import Game from '../App'
 
 export default async function GameConstructor(this: Game): Promise<void> {
     this.UI = this.UI.bind(this)

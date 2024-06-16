@@ -1,5 +1,5 @@
 import 'front-end/imports'
-import { Scene, PerspectiveCamera, WebGLRenderer } from 'three/src/Three'
+import { Scene, PerspectiveCamera, WebGLRenderer } from 'three'
 
 import Level, { LevelSave } from './entities/Level'
 import Player from './entities/Player'
