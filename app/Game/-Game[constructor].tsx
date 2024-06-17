@@ -63,7 +63,7 @@ export default async function GameConstructor(this: Game): Promise<void> {
 
     const camera = (this.camera = new SkyPerspectiveCamera(
         this,
-        90,
+        40,
         window.innerWidth / window.innerHeight,
         0.1,
         1000

@@ -13,9 +13,8 @@ export default class Cell extends Effect {
         super(deps)
 
         const material = new MeshPhysicalMaterial({
-            metalness: 0.5,
-            roughness: 0.5,
-            precision: 'lowp',
+            metalness: 0.4,
+            roughness: 1,
             map: assetsManager.getTexture(`level/${type}`),
         })
 

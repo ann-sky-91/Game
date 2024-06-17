@@ -51,12 +51,14 @@ export default class Player extends Entity {
             camera,
             getTarget: (): Vector3 => this.Position3Able.position,
             pointerLock: false,
-            distance: (): number => 6,
+            distance: (): number => 8,
             z: (): number => 0,
             minAngle: (): number => (Math.PI * 3) / 8,
             maxAngle: (): number => (Math.PI * 3) / 8,
             onUpdate: onControllersUpdate,
         })
+
+        onControllersUpdate()
 
         const { scene } = this.context(Game)
 
