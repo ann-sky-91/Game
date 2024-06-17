@@ -16,7 +16,7 @@ export default class Player extends Entity {
     LinearFriction3Able: LinearFriction3Able
 
     view: Three.Object3D
-    wasdController: WasdController
+    wasdController2D: WasdController2D
     thirdPersonCameraController: ThirdPersonCameraController
 
     constructor(deps: EffectDeps) {
@@ -32,25 +32,27 @@ export default class Player extends Entity {
         const { camera } = this.context(Game)
 
         const onControllersUpdate = (): void => {
-            const acceleration = wasdController.acceleration
-                .clone()
-                .rotateAround(new Vector2(0, 0), this.getCameraDirection2D())
+            const acceleration = this.wasdController2D.acceleration
+
             this.Acceleration3Able.acceleration.x = acceleration.x
             this.Acceleration3Able.acceleration.y = acceleration.y
+
+            this.thirdPersonCameraController.angles[0] = Math.PI / 4
         }
 
-        const wasdController = (this.wasdController = new WasdController([this, Game], {
-            force: 7,
+        this.wasdController2D = new WasdController2D([this, Game], {
+            force: (): number => 7,
+            direction: (): number => this.getCameraDirection2D(),
             onUpdate: onControllersUpdate,
-        }))
+        })
 
         this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
             camera,
             getTarget: (): Vector3 => this.Position3Able.position,
-            distance: 3,
-            z: 2,
-            minAngle: Math.PI / 8,
-            maxAngle: (Math.PI * 3) / 8,
+            distance: (): number => 6,
+            z: (): number => 0,
+            minAngle: (): number => (Math.PI * 3) / 8,
+            maxAngle: (): number => (Math.PI * 3) / 8,
             onUpdate: onControllersUpdate,
         })
 

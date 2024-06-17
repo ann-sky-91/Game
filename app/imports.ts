@@ -5,7 +5,7 @@ import 'sky/helpers/global'
 import 'sky/features/effect/global'
 import 'sky/features/ecs/global'
 
-import 'sky/controllers/WasdController/global'
+import 'sky/controllers/WasdController2D/global'
 import 'sky/controllers/ThirdPersonCameraController/global'
 
 import 'sky/libs/react/global'
