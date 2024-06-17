@@ -9,6 +9,16 @@
 }
 
 html,
+body,
+#root {
+    height: 100%;
+}
+
+#root {
+    display: flex;
+}
+
+html,
 body {
     overflow: hidden;
 }

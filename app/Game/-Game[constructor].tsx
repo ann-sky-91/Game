@@ -1,15 +1,15 @@
 const cx = await classnames('Game', import('../Game.module.scss'))
 
 import { createRoot } from 'react-dom/client'
+import SkyPerspectiveCamera from 'sky/cameras/SkyPerspectiveCamera'
 import Vector3 from 'sky/math/Vector3'
+import SkyRenderer from 'sky/renderers/SkyRenderer'
 import Acceleration3System from 'sky/systems/Acceleration3System'
 import Friction3System from 'sky/systems/Friction3System'
 import LinearFriction3System from 'sky/systems/LinearFriction3System'
 import Movement3System from 'sky/systems/Movement3System'
-import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera'
 import { AmbientLight } from 'three/src/lights/AmbientLight'
 import { DirectionalLight } from 'three/src/lights/DirectionalLight'
-import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer'
 import { Scene } from 'three/src/scenes/Scene'
 
 import Player from '@/entities/Player'
@@ -49,7 +49,7 @@ export default async function GameConstructor(this: Game): Promise<void> {
     }
 
     createLight({
-        alpha: 0.9,
+        alpha: 0.4,
         position: new Vector3(0, 10, 10),
     })
     createLight({
@@ -61,34 +61,21 @@ export default async function GameConstructor(this: Game): Promise<void> {
         position: new Vector3(10, -10, 0),
     })
 
-    const camera = (this.camera = new PerspectiveCamera(
-        50,
+    const camera = (this.camera = new SkyPerspectiveCamera(
+        this,
+        90,
         window.innerWidth / window.innerHeight,
         0.1,
         1000
     ))
-    camera.up.set(0, 0, 1)
 
-    const renderer = (this.renderer = new WebGLRenderer({
-        premultipliedAlpha: true,
-        antialias: true,
+    const renderer = (this.renderer = new SkyRenderer(this, {
+        size: (): [number, number] => [window.innerWidth, window.innerHeight],
     }))
-    renderer.shadowMap.enabled = true
+
     const canvas = renderer.domElement
     document.querySelector('#root').before(canvas)
     cx`canvas` && canvas.classList.add(cx`canvas`)
-
-    renderer.setSize(window.innerWidth, window.innerWidth, false)
-
-    new WindowEventListener(
-        'resize',
-        () => {
-            renderer.setSize(window.innerWidth, window.innerHeight, false)
-            camera.aspect = window.innerWidth / window.innerHeight
-            camera.updateProjectionMatrix()
-        },
-        [this]
-    )
 
     new AnimationFrames(() => {
         systems.run()

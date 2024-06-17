@@ -2,7 +2,8 @@ import Acceleration3Able from 'sky/ables/Acceleration3Able'
 import LinearFriction3Able from 'sky/ables/LinearFriction3Able'
 import Move3Able from 'sky/ables/Move3Able'
 import Position3Able from 'sky/ables/Position3Able'
-import Vector2 from 'sky/math/Vector2'
+import ThirdPersonCameraController from 'sky/controllers/ThirdPersonCameraController'
+import WasdController2D from 'sky/controllers/WasdController2D'
 import Vector3 from 'sky/math/Vector3'
 
 import Game from '@/Game'
@@ -25,7 +26,7 @@ export default class Player extends Entity {
         new Position3Able(this, 100, 100)
         new Move3Able(this)
         new Acceleration3Able(this)
-        new LinearFriction3Able(this, PercentsPerSecond(99.8))
+        new LinearFriction3Able(this, PercentsPerMillisecond(0.5))
     }
 
     onGameContext(): void {
@@ -49,6 +50,7 @@ export default class Player extends Entity {
         this.thirdPersonCameraController = new ThirdPersonCameraController([this, Game], {
             camera,
             getTarget: (): Vector3 => this.Position3Able.position,
+            pointerLock: false,
             distance: (): number => 6,
             z: (): number => 0,
             minAngle: (): number => (Math.PI * 3) / 8,
