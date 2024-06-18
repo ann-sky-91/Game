@@ -1,7 +1,11 @@
+import { DoubleSide } from 'three/src/constants'
 import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry'
-import { ShaderMaterial } from 'three/src/materials/Materials'
+import { ShaderMaterial, MeshPhysicalMaterial } from 'three/src/materials/Materials'
 import { Color } from 'three/src/math/Color'
 import { Mesh } from 'three/src/objects/Mesh'
+import { ShaderLib } from 'three/src/renderers/shaders/ShaderLib'
+import { UniformsLib } from 'three/src/renderers/shaders/UniformsLib'
+import { UniformsUtils, mergeUniforms } from 'three/src/renderers/shaders/UniformsUtils'
 import { Texture } from 'three/src/textures/Texture'
 
 export interface ColoredSpriteViewOptions {
@@ -12,13 +16,20 @@ export interface ColoredSpriteViewOptions {
 export default function ColoredSpriteView(options: ColoredSpriteViewOptions): Mesh {
     const plane = new PlaneGeometry(options.w, options.h, 1, 1)
     const uniforms = {
-        colorB: { type: 'vec3', value: new Color(0xacb6e5) },
-        colorA: { type: 'vec3', value: new Color(0x74ebd5) },
+        texture1: { type: 't', value: options.texture },
     }
     const material = new ShaderMaterial({
-        uniforms: uniforms,
-        fragmentShader: fragmentShader(),
         vertexShader: vertexShader(),
+        fragmentShader: fragmentShader(),
+        defines: {
+            MAP_UV: '',
+            USE_UV: '',
+            USE_MAP: '',
+            USE_LIGHTS: '',
+            USE_SHADOW: '',
+        },
+        uniforms: mergeUniforms([ShaderLib.phong.uniforms, UniformsLib.fog, uniforms]),
+        lights: true,
     })
     const mesh = new Mesh(plane, material)
 
@@ -27,25 +38,24 @@ export default function ColoredSpriteView(options: ColoredSpriteViewOptions): Me
 
 function vertexShader(): string {
     return `
-        varying vec3 vUv; 
-    
+        varying vec2 vUv;
+
         void main() {
-            vUv = position; 
-    
-            vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_Position = projectionMatrix * modelViewPosition; 
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
     `
 }
 
 function fragmentShader(): string {
     return `
-        uniform vec3 colorA; 
-        uniform vec3 colorB; 
-        varying vec3 vUv;
+        uniform vec3 ambientLightColor;
+        uniform sampler2D texture1;
+        varying vec2 vUv;
 
         void main() {
-            gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
+            vec4 textureColor = texture2D(texture1, vUv);
+            gl_FragColor = vec4(ambientLightColor, 1.0) * textureColor;
         }
     `
 }

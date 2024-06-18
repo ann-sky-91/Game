@@ -36,8 +36,7 @@ export default class Player extends Entity {
         const onControllersUpdate = (): void => {
             const acceleration = this.wasdController2D.acceleration
 
-            this.Acceleration3Able.acceleration.x = acceleration.x
-            this.Acceleration3Able.acceleration.y = acceleration.y
+            this.Acceleration3Able.acceleration.copy({ ...acceleration, z: 0 })
 
             this.thirdPersonCameraController.angles[0] = -Math.PI / 4
         }
@@ -77,7 +76,7 @@ export default class Player extends Entity {
         const { scene } = this.context(Game)
 
         const view = (this.view = ColoredSpriteView({
-            texture: null,
+            texture: assetsManager.getTexture('player/player'),
             w: 0.4,
             h: 0.4,
         }))

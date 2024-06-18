@@ -21,6 +21,7 @@ export default async function GameConstructor(this: Game): Promise<void> {
     root.render(<this.UI />)
 
     await assetsManager.loadLevelTextures()
+    await assetsManager.loadPlayerTextures()
 
     const systems = (this.systems = new Systems(this, [
         new Movement3System(),

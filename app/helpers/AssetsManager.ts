@@ -9,6 +9,10 @@ export default class AssetsManager {
         this.textureLoader = new TextureLoader()
     }
 
+    async loadPlayerTextures(): Promise<void> {
+        await Promise.all([this.loadTexture('player/player')])
+    }
+
     async loadLevelTextures(): Promise<void> {
         await Promise.all([
             this.loadTexture('level/bricks'),
