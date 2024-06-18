@@ -8,7 +8,7 @@ import WasdController2D from 'sky/controllers/WasdController2D'
 import Vector3 from 'sky/math/Vector3'
 
 import Game from '@/Game'
-import ColoredSpriteView from '@/views/ColoredTextureView'
+import ColoredSpriteView from '@/views/ColoredSpriteView'
 
 @entity
 export default class Player extends Entity {
@@ -76,7 +76,7 @@ export default class Player extends Entity {
         const { scene } = this.context(Game)
 
         const view = (this.view = ColoredSpriteView({
-            texture: assetsManager.getTexture('player/player'),
+            map: assetsManager.getTexture('player/player'),
             w: 0.4,
             h: 0.4,
         }))

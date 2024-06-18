@@ -1,7 +1,8 @@
 import { BoxGeometry } from 'three/src/geometries/BoxGeometry'
 import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry'
-import { MeshPhysicalMaterial } from 'three/src/materials/MeshPhysicalMaterial'
 import { Mesh } from 'three/src/objects/Mesh'
+
+import BaseShaderMaterial from './BaseShaderMaterial'
 
 export interface CellViewOptions {
     type: string
@@ -13,11 +14,7 @@ export interface CellViewOptions {
 export default function CellView(options: CellViewOptions): Mesh {
     const { type, x, y, z, h } = options
 
-    const material = new MeshPhysicalMaterial({
-        metalness: 0.4,
-        roughness: 1,
-        map: assetsManager.getTexture(`level/${type}`),
-    })
+    const material = BaseShaderMaterial({ map: assetsManager.getTexture(`level/${type}`) })
 
     let mesh: Mesh
     if (h === 0) {
