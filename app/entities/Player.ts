@@ -2,9 +2,9 @@ import Acceleration3Able from 'sky/ables/Acceleration3Able'
 import LinearFriction3Able from 'sky/ables/LinearFriction3Able'
 import Move3Able from 'sky/ables/Move3Able'
 import Position3Able from 'sky/ables/Position3Able'
+import MouseController from 'sky/controllers/MouseController'
 import ThirdPersonCameraController from 'sky/controllers/ThirdPersonCameraController'
 import WasdController2D from 'sky/controllers/WasdController2D'
-import Vector2 from 'sky/math/Vector2'
 import Vector3 from 'sky/math/Vector3'
 
 import Game from '@/Game'
@@ -24,7 +24,7 @@ export default class Player extends Entity {
     constructor(deps: EffectDeps) {
         super(deps)
 
-        new Position3Able(this, 100, 100)
+        new Position3Able(this, 108.14, 141.14)
         new Move3Able(this)
         new Acceleration3Able(this)
         new LinearFriction3Able(this, PercentsPerMillisecond(0.5))
@@ -39,7 +39,7 @@ export default class Player extends Entity {
             this.Acceleration3Able.acceleration.x = acceleration.x
             this.Acceleration3Able.acceleration.y = acceleration.y
 
-            this.thirdPersonCameraController.angles[0] = Math.PI / 4
+            this.thirdPersonCameraController.angles[0] = -Math.PI / 4
         }
 
         this.wasdController2D = new WasdController2D([this, Game], {
@@ -59,27 +59,18 @@ export default class Player extends Entity {
             onUpdate: onControllersUpdate,
         })
 
-        new WindowEventListener(
-            'mousemove',
-            ev => {
-                const { view } = this
-                const vec = new Vector3(
-                    (ev.clientX / window.innerWidth) * 2 - 1,
-                    -(ev.clientY / window.innerHeight) * 2 + 1,
-                    0
-                )
-                vec.unproject(camera)
-                vec.sub(camera.position).normalize()
-                const position = new Vector3()
-                const distance = -camera.position.z / vec.z
-                position
-                    .copy(camera.position)
-                    .add(vec.multiplyScalar(distance))
+        const mouseController = new MouseController(this, {
+            onUpdate: (): void => {
+                const projection = mouseController
+                    .cameraProjectionXY({
+                        camera,
+                        z: this.Position3Able.position.z,
+                    })
                     .sub(this.Position3Able.position)
-                view.rotation.z = new Vector2().copy(position).angle()
+
+                this.view.rotation.z = projection.angle()
             },
-            this
-        )
+        })
 
         onControllersUpdate()
 
