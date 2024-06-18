@@ -1,24 +1,18 @@
-import { DoubleSide } from 'three/src/constants'
-import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry'
-import { ShaderMaterial, MeshPhysicalMaterial } from 'three/src/materials/Materials'
-import { Color } from 'three/src/math/Color'
-import { Mesh } from 'three/src/objects/Mesh'
+import { ShaderMaterial } from 'three/src/materials/Materials'
 import { ShaderLib } from 'three/src/renderers/shaders/ShaderLib'
 import { UniformsLib } from 'three/src/renderers/shaders/UniformsLib'
-import { UniformsUtils, mergeUniforms } from 'three/src/renderers/shaders/UniformsUtils'
+import { mergeUniforms } from 'three/src/renderers/shaders/UniformsUtils'
 import { Texture } from 'three/src/textures/Texture'
 
-export interface ColoredSpriteViewOptions {
+export interface BaseShaderMaterialOptions {
     texture: Texture
-    w: number
-    h: number
 }
-export default function ColoredSpriteView(options: ColoredSpriteViewOptions): Mesh {
-    const plane = new PlaneGeometry(options.w, options.h, 1, 1)
+export default function BaseShaderMaterial(options: BaseShaderMaterialOptions): ShaderMaterial {
     const uniforms = {
         texture1: { type: 't', value: options.texture },
     }
-    const material = new ShaderMaterial({
+
+    return new ShaderMaterial({
         vertexShader: vertexShader(),
         fragmentShader: fragmentShader(),
         defines: {
@@ -30,10 +24,8 @@ export default function ColoredSpriteView(options: ColoredSpriteViewOptions): Me
         },
         uniforms: mergeUniforms([ShaderLib.phong.uniforms, UniformsLib.fog, uniforms]),
         lights: true,
+        transparent: true,
     })
-    const mesh = new Mesh(plane, material)
-
-    return mesh
 }
 
 function vertexShader(): string {

@@ -67,7 +67,7 @@ export default class Player extends Entity {
                     })
                     .sub(this.Position3Able.position)
 
-                this.view.rotation.z = projection.angle()
+                this.view.rotation.z = projection.angle() - Math.PI / 2
             },
         })
 
