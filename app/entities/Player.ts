@@ -4,10 +4,11 @@ import Move3Able from 'sky/ables/Move3Able'
 import Position3Able from 'sky/ables/Position3Able'
 import ThirdPersonCameraController from 'sky/controllers/ThirdPersonCameraController'
 import WasdController2D from 'sky/controllers/WasdController2D'
+import Vector2 from 'sky/math/Vector2'
 import Vector3 from 'sky/math/Vector3'
 
 import Game from '@/Game'
-import BoxView from '@/views/BoxView'
+import ColoredSpriteView from '@/views/ColoredTextureView'
 
 @entity
 export default class Player extends Entity {
@@ -58,11 +59,37 @@ export default class Player extends Entity {
             onUpdate: onControllersUpdate,
         })
 
+        new WindowEventListener(
+            'mousemove',
+            ev => {
+                const { view } = this
+                const vec = new Vector3(
+                    (ev.clientX / window.innerWidth) * 2 - 1,
+                    -(ev.clientY / window.innerHeight) * 2 + 1,
+                    0
+                )
+                vec.unproject(camera)
+                vec.sub(camera.position).normalize()
+                const position = new Vector3()
+                const distance = -camera.position.z / vec.z
+                position
+                    .copy(camera.position)
+                    .add(vec.multiplyScalar(distance))
+                    .sub(this.Position3Able.position)
+                view.rotation.z = new Vector2().copy(position).angle()
+            },
+            this
+        )
+
         onControllersUpdate()
 
         const { scene } = this.context(Game)
 
-        const view = (this.view = BoxView(0.2))
+        const view = (this.view = ColoredSpriteView({
+            texture: null,
+            w: 0.4,
+            h: 0.4,
+        }))
         new InScene(view, scene, [this, Game])
     }
 
@@ -74,7 +101,6 @@ export default class Player extends Entity {
         view.position.x = x
         view.position.y = y
         view.position.z = 1 / 2
-        view.rotation.z = this.getCameraDirection2D()
     }
 
     getCameraDirection2D = (): number => {

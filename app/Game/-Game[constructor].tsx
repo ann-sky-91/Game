@@ -77,12 +77,15 @@ export default async function GameConstructor(this: Game): Promise<void> {
     document.querySelector('#root').before(canvas)
     cx`canvas` && canvas.classList.add(cx`canvas`)
 
+    const timer = new Timer()
+
     new AnimationFrames(() => {
         systems.run()
         renderer.render(scene, camera)
-        this.emit('beforeAnimationFrame')
-        this.emit('onAnimationFrame')
-        this.emit('afterAnimationFrame')
+        const dt = timer.time()
+        this.emit('beforeAnimationFrame', dt)
+        this.emit('onAnimationFrame', dt)
+        this.emit('afterAnimationFrame', dt)
     }, [this])
 
     this.player = new Player(this)
