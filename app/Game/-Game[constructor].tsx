@@ -2,6 +2,7 @@ const cx = await classnames('Game', import('../Game.module.scss'))
 
 import { createRoot } from 'react-dom/client'
 import SkyPerspectiveCamera from 'sky/cameras/SkyPerspectiveCamera'
+import ShadowRenderTargert from 'sky/lights/ShadowRenderTarget'
 import Vector3 from 'sky/math/Vector3'
 import SkyRenderer from 'sky/renderers/SkyRenderer'
 import Acceleration3System from 'sky/systems/Acceleration3System'
@@ -20,8 +21,12 @@ export default async function GameConstructor(this: Game): Promise<void> {
     const root = createRoot(document.querySelector('#root')!)
     root.render(<this.UI />)
 
+    const scene = (this.scene = new Scene())
+
     await assetsManager.loadLevelTextures()
     await assetsManager.loadPlayerTextures()
+
+    await this.loadLevel('stage1_1')
 
     const systems = (this.systems = new Systems(this, [
         new Movement3System(),
@@ -29,8 +34,6 @@ export default async function GameConstructor(this: Game): Promise<void> {
         new LinearFriction3System(),
         new Acceleration3System(),
     ]))
-
-    const scene = (this.scene = new Scene())
 
     const ambientLight = new AmbientLight(0xffffff, 0.1)
     scene.add(ambientLight)
@@ -40,26 +43,27 @@ export default async function GameConstructor(this: Game): Promise<void> {
         position: Vector3
     }
 
-    function createLight(options: CreateLightOptions): void {
+    const createLight = (options: CreateLightOptions): void => {
         const light = new DirectionalLight(0xffffff, options.alpha)
-        light.castShadow = true
         light.position.copy(options.position)
-        light.target.position.set(0, 0, 0)
+        light.target.position.set(this.level.w / 2, this.level.h / 2, 0)
+        light.castShadow = true
         scene.add(light)
         scene.add(light.target)
+
+        this.lights.push(light)
+        this.shadowRenderTargets.push(
+            new ShadowRenderTargert({
+                position: options.position,
+                targetPosition: new Vector3(this.level.w / 2, this.level.h / 2, 0),
+                scene,
+            })
+        )
     }
 
     createLight({
-        alpha: 0.4,
-        position: new Vector3(0, 10, 10),
-    })
-    createLight({
-        alpha: 0.5,
-        position: new Vector3(-10, -10, -10),
-    })
-    createLight({
-        alpha: 0.3,
-        position: new Vector3(10, -10, 0),
+        alpha: 1,
+        position: new Vector3(0, 0, 30),
     })
 
     const camera = (this.camera = new SkyPerspectiveCamera(
@@ -82,14 +86,20 @@ export default async function GameConstructor(this: Game): Promise<void> {
 
     new AnimationFrames(() => {
         systems.run()
+        // renderer.setClearColor('#FFFFFF', 1.0)
+        // this.shadowRenderTargets.forEach(renderTarget => {
+        //     renderer.render(scene, renderTarget.camera)
+        // })
+        renderer.setClearColor('#333333', 0.0)
         renderer.render(scene, camera)
         const dt = timer.time()
+        this.emit('beforeUpdate', dt)
+        this.emit('update', dt)
+        this.emit('afterUpdate', dt)
         this.emit('beforeAnimationFrame', dt)
         this.emit('onAnimationFrame', dt)
         this.emit('afterAnimationFrame', dt)
     }, [this])
 
     this.player = new Player(this)
-
-    this.loadLevel('stage1_1')
 }

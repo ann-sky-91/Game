@@ -23,9 +23,6 @@ export default function CellView(options: CellViewOptions): Mesh {
         mesh = new Mesh(new BoxGeometry(1, 1, h, 1, 1, 1), material)
     }
 
-    mesh.castShadow = true
-    mesh.receiveShadow = true
-
     const uvAttribute = mesh.geometry.attributes.uv
     for (let i = 0; i < uvAttribute.count; i++) {
         const u = uvAttribute.getX(i)

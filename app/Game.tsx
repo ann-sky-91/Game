@@ -1,6 +1,8 @@
 import '@/imports'
 import { Text, StyleProp, TextStyle } from 'react-native'
+import ShadowRenderTargert from 'sky/lights/ShadowRenderTarget'
 import { Scene, PerspectiveCamera, WebGLRenderer } from 'three'
+import { DirectionalLight } from 'three/src/lights/DirectionalLight'
 
 import Level, { LevelSave } from './entities/Level'
 import Player from './entities/Player'
@@ -10,6 +12,8 @@ export default class Game extends Root {
     static context = 'GameContext'
 
     systems: Systems
+    lights: DirectionalLight[] = []
+    shadowRenderTargets: ShadowRenderTargert[] = []
     scene: Scene
     camera: PerspectiveCamera
     renderer: WebGLRenderer
@@ -46,13 +50,7 @@ export default class Game extends Root {
             )
         }
 
-        const { position } = this.player.Position3Able
-
-        return (
-            <Text style={style}>
-                {position.x.toFixed(2)}, {position.y.toFixed(2)}
-            </Text>
-        )
+        return null
     }
 
     async loadLevel(this: Game, name: string): Promise<void> {
