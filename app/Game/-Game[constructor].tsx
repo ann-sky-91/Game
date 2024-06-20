@@ -90,7 +90,7 @@ export default async function GameConstructor(this: Game): Promise<void> {
         // this.shadowRenderTargets.forEach(renderTarget => {
         //     renderer.render(scene, renderTarget.camera)
         // })
-        renderer.setClearColor('#333333', 0.0)
+        renderer.setClearColor('#111', 1.0)
         renderer.render(scene, camera)
         const dt = timer.time()
         this.emit('beforeUpdate', dt)
