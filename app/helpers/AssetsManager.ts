@@ -181,6 +181,10 @@ class AssetsManager {
                 this.__textures[name] = { factor, wrapX, wrapY, texture }
                 return texture
             })
+            .catch(err => {
+                // eslint-disable-next-line no-console
+                console.error(err)
+            })
     }
 
     private __updateProgress(): void {
