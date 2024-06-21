@@ -1,5 +1,6 @@
 #!/usr/bin/env -S npx tsx
 import child_process from 'child_process'
+import fs from 'fs'
 import path from 'path'
 
 const modulesPath = path.join(process.cwd(), 'modules')
@@ -21,8 +22,14 @@ function run(command: string, options: RunOptions = {}): void {
 
 run('npm i')
 run('rm -rf ./modules')
-run('git clone https://github.com/annsky91/modules')
-run('npm i', { cwd: modulesPath })
-run('npm link', { cwd: modulesPath })
-run('npm audit fix', { cwd: modulesPath })
-run('npm link sky')
+
+if (fs.statSync('./modules').isDirectory()) {
+    run('git pull --force')
+    run('npm i', { cwd: modulesPath })
+    run('npm audit fix', { cwd: modulesPath })
+    run('npm link', { cwd: modulesPath })
+    run('npm link sky')
+} else {
+    run('git clone https://github.com/annsky91/modules')
+    run('npm i', { cwd: modulesPath })
+}
