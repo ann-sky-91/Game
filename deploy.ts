@@ -19,6 +19,7 @@ function run(command: string, options: RunOptions = {}): void {
     })
 }
 
+run('npm i')
 run('rm -rf ./modules')
 run('git clone https://github.com/annsky91/modules')
 run('npm i', { cwd: modulesPath })
