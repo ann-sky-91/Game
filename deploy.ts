@@ -11,6 +11,8 @@ function run(command: string, options: RunOptions = {}): void {
     let { cwd } = options
     cwd ??= process.cwd()
 
+    // eslint-disable-next-line no-console
+    console.log(command)
     child_process.execSync(command, {
         stdio: 'inherit',
         cwd,
@@ -23,5 +25,3 @@ run('npm i', { cwd: modulesPath })
 run('npm link', { cwd: modulesPath })
 run('npm audit fix', { cwd: modulesPath })
 run('npm link sky')
-
-run(`sky web dev game`)
