@@ -1,6 +1,5 @@
 #!/usr/bin/env -S npx tsx
 import child_process from 'child_process'
-import fs from 'fs'
 import path from 'path'
 
 const modulesPath = path.join(process.cwd(), 'modules')
