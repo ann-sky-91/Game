@@ -9,8 +9,11 @@ import Acceleration3System from 'sky/systems/Acceleration3System'
 import Friction3System from 'sky/systems/Friction3System'
 import LinearFriction3System from 'sky/systems/LinearFriction3System'
 import Movement3System from 'sky/systems/Movement3System'
+import { Audio } from 'three/src/audio/Audio'
+import { AudioListener } from 'three/src/audio/AudioListener'
 import { AmbientLight } from 'three/src/lights/AmbientLight'
 import { DirectionalLight } from 'three/src/lights/DirectionalLight'
+import { AudioLoader } from 'three/src/loaders/AudioLoader'
 import { Scene } from 'three/src/scenes/Scene'
 
 import Player from '@/entities/Player'
@@ -102,4 +105,16 @@ export default async function GameConstructor(this: Game): Promise<void> {
     }, [this])
 
     this.player = new Player(this)
+
+    const listener = new AudioListener()
+    camera.add(listener)
+    const sound = new Audio(listener)
+
+    const audioLoader = new AudioLoader()
+    audioLoader.load('assets/audio/back__doxent_-_Forgotten_Land.ogg', function (buffer) {
+        sound.setBuffer(buffer)
+        sound.setLoop(true)
+        sound.setVolume(1)
+        sound.play()
+    })
 }
