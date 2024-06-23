@@ -1,16 +1,14 @@
-import { Mesh } from 'three/src/objects/Mesh'
-
 import Game from '@/Game'
 import CellView from '@/views/CellView'
 
 @effect
 export default class Cell extends Effect {
-    mesh: Mesh
+    view: CellView
 
     constructor(type: string, x: number, y: number, z: number, h: number, deps: EffectDeps) {
         super(deps)
 
-        this.mesh = CellView({
+        this.view = new CellView({
             type,
             x,
             y,
@@ -21,6 +19,6 @@ export default class Cell extends Effect {
 
     onGameContext(): void {
         const game = this.context(Game)
-        new InScene(this.mesh, game.scene, [this, Game])
+        new InScene(this.view, game.scene, [this, Game])
     }
 }
