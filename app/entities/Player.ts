@@ -17,14 +17,14 @@ export default class Player extends Entity {
     Acceleration3Able: Acceleration3Able
     LinearFriction3Able: LinearFriction3Able
 
-    view: Three.Object3D
+    view: ColoredSpriteView
     wasdController2D: WasdController2D
     thirdPersonCameraController: ThirdPersonCameraController
 
     constructor(deps: EffectDeps) {
         super(deps)
 
-        new Position3Able(this, 108.14, 141.14)
+        new Position3Able(this, 108.5, 141.5)
         new Move3Able(this)
         new Acceleration3Able(this)
         new LinearFriction3Able(this, PercentsPerMillisecond(0.5))
@@ -75,7 +75,7 @@ export default class Player extends Entity {
 
         const { scene } = this.context(Game)
 
-        const view = (this.view = ColoredSpriteView({
+        const view = (this.view = new ColoredSpriteView({
             map: assetsManager.getTexture('player/player'),
             w: 0.5,
             h: 0.5,
@@ -90,7 +90,7 @@ export default class Player extends Entity {
 
         view.position.x = x
         view.position.y = y
-        view.position.z = 1 / 2
+        view.position.z = 0.01
     }
 
     getCameraDirection2D = (): number => {

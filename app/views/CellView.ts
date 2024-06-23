@@ -14,7 +14,7 @@ export default function CellView(options: CellViewOptions): Mesh {
     const { type, x, y, z, h } = options
 
     const textureOptions = assetsManager.getTextureOptions(`level/${type}`)
-    const material = BaseShaderMaterial({ map: textureOptions.texture })
+    const material = new BaseShaderMaterial({ map: textureOptions.texture })
 
     const view = TiledBoxView({
         material,

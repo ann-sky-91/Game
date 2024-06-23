@@ -7,23 +7,25 @@ import { Texture } from 'three/src/textures/Texture'
 export interface BaseShaderMaterialOptions {
     map: Texture
 }
-export default function BaseShaderMaterial(options: BaseShaderMaterialOptions): ShaderMaterial {
-    const uniforms = {
-        map: { type: 't', value: options.map },
-    }
+export default class BaseShaderMaterial extends ShaderMaterial {
+    constructor(options: BaseShaderMaterialOptions) {
+        const uniforms = {
+            map: { type: 't', value: options.map },
+        }
 
-    return new ShaderMaterial({
-        vertexShader: vertexShader(),
-        fragmentShader: fragmentShader(),
-        uniforms: mergeUniforms([
-            UniformsLib.lights,
-            ShaderLib.phong.uniforms,
-            UniformsLib.fog,
-            uniforms,
-        ]),
-        lights: true,
-        transparent: false,
-    })
+        super({
+            vertexShader: vertexShader(),
+            fragmentShader: fragmentShader(),
+            uniforms: mergeUniforms([
+                UniformsLib.lights,
+                ShaderLib.phong.uniforms,
+                UniformsLib.fog,
+                uniforms,
+            ]),
+            lights: true,
+            transparent: false,
+        })
+    }
 }
 
 function vertexShader(): string {
