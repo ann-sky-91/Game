@@ -1,4 +1,4 @@
-const cx = await classnames('Game', import('../Game.module.scss'))
+const cx = await classnames('Game', import('./Game.module.scss'))
 
 import { createRoot } from 'react-dom/client'
 import SkyPerspectiveCamera from 'sky/cameras/SkyPerspectiveCamera'

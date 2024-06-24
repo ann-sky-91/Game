@@ -4,9 +4,9 @@ import ShadowRenderTargert from 'sky/lights/ShadowRenderTarget'
 import { Scene, PerspectiveCamera, WebGLRenderer } from 'three'
 import { DirectionalLight } from 'three/src/lights/DirectionalLight'
 
-import Level, { LevelSave } from './entities/Level'
-import Player from './entities/Player'
-import GameConstructor from './Game/-Game[constructor]'
+import Level, { LevelSave } from '../entities/Level'
+import Player from '../entities/Player'
+import GameConstructor from './-Game[constructor]'
 
 export default class Game extends Root {
     static context = 'GameContext'
