@@ -1,6 +1,6 @@
 import { Object3D } from 'three/src/core/Object3D'
 
-import Cell from './Cell'
+import Cells from './Cells'
 
 export interface LevelSave {
     width: number
@@ -45,6 +45,16 @@ export default class Level extends Entity {
             const heights = level.layers[i * 3 + 1]
             const ground = level.layers[i * 3]
 
+            type GridValue = {
+                x: number
+                y: number
+                z: number
+                h: number
+                slug: string
+            }
+
+            const grid: GridValue[][] = []
+
             for (let y = 0; y < level.height; ++y) {
                 for (let x = 0; x < level.width; ++x) {
                     const dataIndex = y * level.width + x
@@ -61,7 +71,44 @@ export default class Level extends Entity {
                     const z = layerIndex - 2
                     const h = hSlug ? Number(hSlug.slice(-1)) / 6 : 0
 
-                    new Cell(slug, level.width - x, y, z * 2.0001, h * 2, this)
+                    grid[x] ??= []
+                    grid[x][y] = {
+                        x,
+                        y,
+                        z,
+                        h,
+                        slug,
+                    }
+                }
+            }
+
+            const handleCell = (x: number, y: number, values: GridValue[] = []): GridValue[] => {
+                const value = grid[x][y]
+                values.push(value)
+                grid[x][y] = null
+
+                if (grid[x + 1] && grid[x + 1][y] && grid[x + 1][y].slug === value.slug) {
+                    handleCell(x + 1, y, values)
+                }
+                if (grid[x - 1] && grid[x - 1][y] && grid[x - 1][y].slug === value.slug) {
+                    handleCell(x - 1, y, values)
+                }
+                if (grid[x] && grid[x][y + 1] && grid[x][y + 1].slug === value.slug) {
+                    handleCell(x, y + 1, values)
+                }
+                if (grid[x] && grid[x][y - 1] && grid[x][y - 1].slug === value.slug) {
+                    handleCell(x, y - 1, values)
+                }
+
+                return values
+            }
+
+            for (let y = 0; y < level.height; ++y) {
+                for (let x = 0; x < level.width; ++x) {
+                    if (grid[x] && grid[x][y]) {
+                        const values = handleCell(x, y)
+                        new Cells(values, this)
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@ import { Color } from 'three/src/math/Color'
 import { Mesh } from 'three/src/objects/Mesh'
 import { Texture } from 'three/src/textures/Texture'
 
-import ColoredShaderMaterial from './ColoredShaderMaterial'
+import ColoredShaderMaterial from '../materials/ColoredShaderMaterial'
 
 export interface ColoredSpriteViewOptions {
     map: Texture
