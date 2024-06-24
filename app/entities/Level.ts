@@ -73,10 +73,10 @@ export default class Level extends Entity {
 
                     grid[x] ??= []
                     grid[x][y] = {
-                        x,
+                        x: level.width - x,
                         y,
-                        z,
-                        h,
+                        z: z * 2.001,
+                        h: h * 2,
                         slug,
                     }
                 }

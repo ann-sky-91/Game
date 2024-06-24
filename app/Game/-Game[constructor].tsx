@@ -1,4 +1,4 @@
-const cx = await classnames('Game', import('./Game.module.scss'))
+const cx = await classnames('Game', import('./-Game.module.scss'))
 
 import { createRoot } from 'react-dom/client'
 import SkyPerspectiveCamera from 'sky/cameras/SkyPerspectiveCamera'
@@ -106,15 +106,18 @@ export default async function GameConstructor(this: Game): Promise<void> {
 
     this.player = new Player(this)
 
-    const listener = new AudioListener()
-    camera.add(listener)
-    const sound = new Audio(listener)
+    // eslint-disable-next-line no-constant-condition
+    if (false) {
+        const listener = new AudioListener()
+        camera.add(listener)
 
-    const audioLoader = new AudioLoader()
-    audioLoader.load('assets/audio/back__doxent_-_Forgotten_Land.ogg', function (buffer) {
-        sound.setBuffer(buffer)
-        sound.setLoop(true)
-        sound.setVolume(1)
-        sound.play()
-    })
+        const sound = new Audio(listener)
+        const audioLoader = new AudioLoader()
+        audioLoader.load('assets/audio/back__doxent_-_Forgotten_Land.ogg', function (buffer) {
+            sound.setBuffer(buffer)
+            sound.setLoop(true)
+            sound.setVolume(1)
+            sound.play()
+        })
+    }
 }

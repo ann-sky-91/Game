@@ -80,6 +80,7 @@ export default class Player extends Entity {
             w: 0.5,
             h: 0.5,
         }))
+        this.view.rotation.z = (Math.PI * 3) / 4
         new InScene(view, scene, [this, Game])
     }
 
