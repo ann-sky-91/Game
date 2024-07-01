@@ -2,10 +2,6 @@ const { pathsToModuleNameMapper } = require('ts-jest')
 
 const { compilerOptions } = require('./tsconfig')
 
-if (compilerOptions.paths['*'][0] === '*') {
-    compilerOptions.paths['*'][0] = './*'
-}
-compilerOptions.paths['./*'] = compilerOptions.paths['*']
 delete compilerOptions.paths['*']
 
 module.exports = {

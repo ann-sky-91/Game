@@ -22,19 +22,24 @@
             "@/*": [
                 "app/*"
             ],
+            "libs/*": [
+                "../Modules/libs/*"
+            ],
             "sky/*": [
                 "../Modules/*"
             ],
             "game/*": [
                 "app/*"
+            ],
+            "public/*": [
+                "app/public/*"
             ]
         }
     },
     "include": [
-        "deploy.ts",
         "../Modules",
         "app",
-        ".sky/"
+        "app/public"
     ],
     "exclude": [
         "node_modules",

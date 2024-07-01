@@ -1,5 +1,5 @@
 import '@/imports'
-import 'sky/styles/Page.scss'
+import 'sky/styles/components/Page.scss'
 import Game from '@/Game'
 import AssetsManager from '@/helpers/AssetsManager'
 

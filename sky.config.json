@@ -5,8 +5,7 @@
             "name": "game",
             "path": "app",
             "target": "universal",
-            "public": "app/public",
-            "tauri-assets": "app"
+            "public": "app/public"
         }
     ],
     "modules": [],
