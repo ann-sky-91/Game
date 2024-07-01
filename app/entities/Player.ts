@@ -77,8 +77,8 @@ export default class Player extends Entity {
 
         const view = (this.view = new ColoredSpriteView({
             map: assetsManager.getTexture('player/player'),
-            w: 0.5,
-            h: 0.5,
+            w: 0.4,
+            h: 0.4,
         }))
         this.view.rotation.z = (Math.PI * 3) / 4
         new InScene(view, scene, [this, Game])

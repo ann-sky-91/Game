@@ -60,11 +60,15 @@ function fragmentShader(): string {
             ${FRAGMENT_SHADER_MAIN_BEGIN}
 
             vec4 textureColor = texture2D(map, vUv);
+
+            vec3 color = vec3(1.0, 1.0, 1.0);
+            vec3 extraColor = vec3(0.5, 0.5, 0.5);
+            vec3 lightColor = vec3(0.2, 0.2, 0.2);
             
-            diffuseColor.r = textureColor.r;
-            diffuseColor.g = textureColor.r;
-            diffuseColor.b = textureColor.r;
-            diffuseColor.a = textureColor.r * textureColor.a;
+            diffuseColor.r = color.r * textureColor.r + extraColor.r * textureColor.g + lightColor.r * textureColor.b;
+            diffuseColor.g = color.g * textureColor.r + extraColor.g * textureColor.g + lightColor.g * textureColor.b;
+            diffuseColor.b = color.b * textureColor.r + extraColor.b * textureColor.g + lightColor.b * textureColor.b;
+            diffuseColor.a = textureColor.a;
 
             ${FRAGMENT_SHADER_MAIN_END}
         }
