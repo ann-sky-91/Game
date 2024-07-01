@@ -154,7 +154,10 @@ class AssetsManager {
         return this.__textures[name]
     }
 
-    loadTexture(name: string, options: AssetsManager.LoadTextureOptions = {}): Promise<Texture> {
+    loadTexture(
+        name: string,
+        options: AssetsManager.LoadTextureOptions = {}
+    ): Promise<void | Texture> {
         const { wrapX, wrapY } = options
         let { factor } = options
         factor ??= 1
@@ -163,7 +166,7 @@ class AssetsManager {
         this.__updateProgress()
 
         return this.textureLoader
-            .loadAsync(`/assets/${name}.png`, ev => {
+            .loadAsync(`/images/${name}.png`, ev => {
                 this.__loaders[`texture ${name}`] = ev.loaded / ev.total
                 this.__updateProgress()
             })
@@ -189,10 +192,17 @@ class AssetsManager {
 
     private __updateProgress(): void {
         const loaderKeys = Object.keys(this.__loaders)
+
+        if (loaderKeys.length === 0) {
+            this.progress = 1
+            return
+        }
+
         this.progress = loaderKeys.reduce((prev, k) => {
             return prev + this.__loaders[k]
         }, 0)
         this.progress /= loaderKeys.length
+
         if (this.progress === 1) {
             this.__loaders = {}
         }
