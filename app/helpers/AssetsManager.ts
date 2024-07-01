@@ -150,11 +150,12 @@ class AssetsManager {
     getTexture(name: string): Texture {
         return this.__textures[name].texture
     }
+
     getTextureOptions(name: string): AssetsManager.TextureOptions {
         return this.__textures[name]
     }
 
-    loadTexture(
+    async loadTexture(
         name: string,
         options: AssetsManager.LoadTextureOptions = {}
     ): Promise<void | Texture> {
@@ -183,10 +184,6 @@ class AssetsManager {
                 this.__updateProgress()
                 this.__textures[name] = { factor, wrapX, wrapY, texture }
                 return texture
-            })
-            .catch(err => {
-                // eslint-disable-next-line no-console
-                console.error(err)
             })
     }
 
