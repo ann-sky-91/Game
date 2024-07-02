@@ -5,9 +5,50 @@ import { Mesh } from 'three/src/objects/Mesh'
 
 import BaseShaderMaterial from '../materials/BaseShaderMaterial'
 
+import { texturesWithPadding } from '@/configs/assets'
 import { CellsInfo } from '@/entities/Cells'
+import AssetsManager from '@/helpers/AssetsManager'
 
 export default class CellsView extends Mesh {
+    private static plane(
+        cell: CellsInfo[0],
+        textureOptions: AssetsManager.TextureOptions
+    ): TiledPlaneGeometry {
+        return new TiledPlaneGeometry({
+            ...cell,
+            width: 1,
+            depth: 1,
+            mapFactor: textureOptions.factor,
+        })
+    }
+
+    private static planeWithPadding(
+        cell: CellsInfo[0],
+        textureOptions: AssetsManager.TextureOptions
+    ): TiledPlaneGeometry {
+        const PAD = 0.25
+        const geometry = new TiledPlaneGeometry({
+            ...cell,
+            width: 1 + PAD * 2,
+            depth: 1 + PAD * 2,
+            mapFactor: textureOptions.factor,
+        })
+        return geometry
+    }
+
+    private static box(
+        cell: CellsInfo[0],
+        textureOptions: AssetsManager.TextureOptions
+    ): TiledBoxGeometry {
+        return new TiledBoxGeometry({
+            ...cell,
+            width: 1,
+            depth: 1,
+            height: cell.h / 3,
+            mapFactor: textureOptions.factor,
+        })
+    }
+
     constructor(cells: CellsInfo) {
         const type = cells[0].slug
         const textureOptions = assetsManager.getTextureOptions(`level/${type}`)
@@ -33,23 +74,22 @@ export default class CellsView extends Mesh {
             maxZ = Math.max(maxZ, cell.z + cell.h / 2)
             let geometry: TiledPlaneGeometry | TiledBoxGeometry
             if (cell.h === 0) {
-                geometry = new TiledPlaneGeometry({
-                    ...cell,
-                    width: 1,
-                    depth: 1,
-                    mapFactor: textureOptions.factor,
-                })
+                geometry = CellsView.plane(cell, textureOptions)
             } else {
-                geometry = new TiledBoxGeometry({
-                    ...cell,
-                    width: 1,
-                    depth: 1,
-                    height: cell.h,
-                    mapFactor: textureOptions.factor,
-                })
+                geometry = CellsView.box(cell, textureOptions)
             }
-            geometry.translate(cell.x + 0.5 - x, cell.y + 0.5 - y, cell.z + cell.h / 2 - z)
+            geometry.translate(cell.x + 0.5 - x, cell.y + 0.5 - y, cell.z + cell.h / 6 - z)
             geometries.push(geometry)
+
+            if (texturesWithPadding[type]) {
+                geometry.translate(0, 0, texturesWithPadding[type].zIndex / 10000)
+                for (let i = 0; i <= cell.h; ++i) {
+                    const geometry = CellsView.planeWithPadding(cell, textureOptions)
+                    geometry.translate(cell.x + 0.5 - x, cell.y + 0.5 - y, cell.z + i / 3 - z)
+                    geometry.translate(0, 0, texturesWithPadding[type].zIndex / 1000)
+                    geometries.push(geometry)
+                }
+            }
         })
 
         const geometry = BufferGeometryUtils.mergeGeometries(geometries)

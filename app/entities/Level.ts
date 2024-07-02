@@ -40,7 +40,7 @@ export default class Level extends Entity {
 
         const dictionary = getLevelDictionary(level)
 
-        for (let i = 2; i < 3; ++i) {
+        for (let i = 0; i < 6; ++i) {
             const layerIndex = i
             const heights = level.layers[i * 3 + 1]
             const ground = level.layers[i * 3]
@@ -68,15 +68,15 @@ export default class Level extends Entity {
                     const hIndex = heights.data[dataIndex]
                     const hSlug = dictionary[hIndex]
 
-                    const z = layerIndex - 2
-                    const h = hSlug ? Number(hSlug.slice(-1)) / 6 : 0
+                    const z = layerIndex * 2 - 4
+                    const h = hSlug ? Number(hSlug.slice(-1)) : 0
 
                     grid[x] ??= []
                     grid[x][y] = {
                         x: level.width - x,
                         y,
-                        z: z * 2.001,
-                        h: h * 2,
+                        z: z * 1.001,
+                        h,
                         slug,
                     }
                 }

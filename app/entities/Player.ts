@@ -38,7 +38,7 @@ export default class Player extends Entity {
 
             this.Acceleration3Able.acceleration.copy({ ...acceleration, z: 0 })
 
-            this.thirdPersonCameraController.angles[0] = -Math.PI / 4
+            //this.thirdPersonCameraController.angles[0] = -Math.PI / 4
         }
 
         this.wasdController2D = new WasdController2D([this, Game], {
@@ -53,8 +53,8 @@ export default class Player extends Entity {
             pointerLock: false,
             distance: (): number => 8,
             z: (): number => 0,
-            minAngle: (): number => (Math.PI * 3) / 8,
-            maxAngle: (): number => (Math.PI * 3) / 8,
+            // minAngle: (): number => (Math.PI * 3) / 8,
+            // maxAngle: (): number => (Math.PI * 3) / 8,
             onUpdate: onControllersUpdate,
         })
 
@@ -91,7 +91,7 @@ export default class Player extends Entity {
 
         view.position.x = x
         view.position.y = y
-        view.position.z = 0.01
+        view.position.z = 0.02
     }
 
     getCameraDirection2D = (): number => {
